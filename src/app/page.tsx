@@ -35,7 +35,7 @@ export default function Home() {
               </div>
               <div className={`${playfairDisplay.variable} details max-w-xl ml-10`}>
                 <p className="text-gray-500 dark:text-white">Hi, I'm </p>
-                <h3 className={`font-playfair font-medium name text-[55px] mb-[14px] text-gray-500 dark:text-gray-200`}>
+                <h3 className="font-playfair font-medium name text-[55px] mb-[14px] text-gray-500 dark:text-gray-200">
                   Temi <span>Lajumoke</span>
                 </h3>
                 <p className="job font-playfair mb-[25px] text-gray-500 dark:text-gray-50">
@@ -45,7 +45,7 @@ export default function Home() {
                   <a
                     href="https://soundcloud.com/temilaj"
                     target="_blank"
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     className="text-gray-500 dark:text-gray-300 hover:underline"
                   >
                     relaxing fingerstyle guitar music
@@ -59,11 +59,11 @@ export default function Home() {
                       <a
                         className="text-black text-[20px] transition-all duration-300 hover:text-black"
                         target="_blank"
-                        rel="noopener"
+                        rel="noopener noreferrer"
                         href="mailto:temi@temilajumoke.com"
                       >
                         <svg
-                          enable-background="new 0 0 48 48"
+                          enableBackground="new 0 0 48 48"
                           height="48px"
                           version="1.1"
                           viewBox="0 0 48 48"
@@ -95,7 +95,7 @@ export default function Home() {
                       <a
                         className="text-black text-[20px] transition-all duration-300 hover:text-black w-36 h-36"
                         target="_blank"
-                        rel="noopener"
+                        rel="noopener noreferrer"
                         href="https://www.linkedin.com/in/temilajumoke/"
                       >
                         <svg
@@ -115,7 +115,7 @@ export default function Home() {
                       <a
                         className="text-black text-[20px] transition-all duration-300 hover:text-black"
                         target="_blank"
-                        rel="noopener"
+                        rel="noopener noreferrer"
                         href="https://github.com/temilaj"
                       >
                         <svg
