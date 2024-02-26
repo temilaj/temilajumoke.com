@@ -17,10 +17,10 @@ export default function Home() {
         </a>
       </div>
 
-      <div className="animated">
+      <div className="animated mt-14 sm:mt-0">
         <div className="container">
           <div className="tokyo_tm_home max-w-4xl clear-both flex items-center justify-center relative">
-            <div className="home_content flex items-center justify-normal">
+            <div className="home_content sm:flex items-center justify-normal">
               <div className="image max-w-sm">
                 <Image
                   className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] avatar rounded-full"
@@ -33,25 +33,25 @@ export default function Home() {
                   style={{ width: '100%', height: 'auto' }}
                 />
               </div>
-              <div className={`${playfairDisplay.variable} details max-w-xl ml-10`}>
+              <div className={`${playfairDisplay.variable} mt-12 mb-28 sm:mb-0 details max-w-xl sm:ml-10`}>
                 <p className="text-gray-500 dark:text-white">Hi, I'm </p>
                 <h3 className="font-playfair font-medium name text-[55px] mb-[14px] text-gray-500 dark:text-gray-200">
                   Temi <span>Lajumoke</span>
                 </h3>
                 <p className="job font-playfair mb-[25px] text-gray-500 dark:text-gray-50">
                   I'm a Software and Machine Learning Engineer with over eight years of experience working on full-stack
-                  web and mobile technologies. I currently work on distributed system runtimes and inference
+                  web and mobile technologies. I currently work on distributed system runtimes and inference engine
                   enhancements for Large Language Models at Amazon AI. Outside the professional sphere, I compose{' '}
                   <a
                     href="https://soundcloud.com/temilaj"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-500 dark:text-gray-300 hover:underline"
+                    className="text-blue-500 dark:text-blue-500 hover:underline"
                   >
                     relaxing fingerstyle guitar music
                   </a>{' '}
-                  and seek experiences in the great outdoors, through kayaking on tranquil waters or snowboarding down
-                  groomed slopes.
+                  and seek experiences in the great outdoors, whether it's kayaking on tranquil waters or snowboarding
+                  down groomed slopes.
                 </p>
                 <div className="social w-full float-left">
                   <ul className="m-0 list-none flex items-center">
