@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { playfairDisplay, roboto } from '../app/fonts';
+import ThemeToggle from '../components/ThemeToggle';
 
 export default function Home() {
   return (
@@ -15,6 +16,9 @@ export default function Home() {
             priority
           />
         </a>
+        <div className="fixed top-6 right-6 z-50">
+          <ThemeToggle />
+        </div>
       </div>
 
       <div className="animated mt-14 sm:mt-0">
