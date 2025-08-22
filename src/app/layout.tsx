@@ -1,33 +1,70 @@
 import './globals.css';
+import type React from 'react';
+import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from '../context/ThemeProvider';
+import { playfairDisplay } from './fonts';
+import { Author } from 'next/dist/lib/metadata/types/metadata-types';
+import { OpenGraph } from 'next/dist/lib/metadata/types/opengraph-types';
+import { Twitter } from 'next/dist/lib/metadata/types/twitter-types';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
 
-export const metadata = {
+const author: Author = {
+  name: 'Temi Lajumoke',
+  url: 'https://temilajumoke.com',
+};
+
+const openGraph: OpenGraph = {
+  title: 'Temi Lajumoke',
+  description: "Hi, I'm Temi Lajumoke.",
+  images: ['https://temilajumoke.com/temilajumoke-logo.png'],
+  type: 'website',
+  determiner: 'the',
+  locale: 'en_US',
+  alternateLocale: ['en_GB'],
+  siteName: 'Temilajumoke.com',
+  url: 'https://temilajumoke.com',
+};
+
+const twitter: Twitter = {
+  card: 'summary_large_image',
+  site: '@temilaj',
+  creator: '@temilaj',
+  title: 'Temi Lajumoke',
+  description: "Hi, I'm Temi Lajumoke.",
+  images: [
+    {
+      url: 'https://temilajumoke.com/temilajumoke-logo.png',
+      alt: 'temilajumoke.com logo',
+    },
+  ],
+  creatorId: 'temilaj',
+  siteId: 'temilaj',
+};
+
+export const metadata: Metadata = {
   title: 'Home | Temi Lajumoke',
   description: "Hi, I'm Temi Lajumoke.",
   keywords: 'Temilaj, Temi Lajumoke, Software Engineer, Machine Learning Engineer, Software Developer,',
-  author: 'Temi Lajumoke, Temilaj',
+  authors: [author],
   robots: 'index, follow',
-
-  'og:title': 'Temi Lajumoke',
-  'og:description': "Hi, I'm Temi Lajumoke.",
-  'og:image': 'https://temilajumoke.com/temilajumoke-logo.png',
-  'og:determiner': 'the',
-  'og:locale': 'en_Us',
-  'og:locale:alternate': 'en_GB',
-  'og:site_name': 'Temilajumoke.com',
-  'og:type': 'website',
-  'twitter:card': 'summary_large_image',
-  'twitter:site': 'temilaj',
-  'twitter:image:alt': 'temilajumoke.com logo',
+  openGraph,
+  twitter,
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.variable} ${playfairDisplay.variable} antialiased`}>
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
