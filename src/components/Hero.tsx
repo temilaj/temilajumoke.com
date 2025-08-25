@@ -26,13 +26,15 @@ export default function Hero(props: { sectionsRef: React.RefObject<(HTMLElement 
 
           <div className="space-y-6">
             <p className="font-playfair text-lg text-muted-foreground leading-relaxed">
-              I have spent the last 8 years as a{' '}
-              <span className="text-foreground"> Software & Machine Learning Engineer </span>
-              focused on building <span className="text-foreground"> scalable </span> and{' '}
-              <span className="text-foreground font-medium"> highly performant </span> software systems across the
-              stack: from <span className="text-foreground font-medium"> Frontend Web Apps & Mobile Apps</span>, to
-              <span className="text-foreground font-medium"> Distrubited Backend Systems</span>, to{' '}
-              <span className="text-foreground font-medium"> Deep Learning models </span>, and{' '}
+              I&apos;m a<span className="text-foreground font-medium"> Software & Machine Learning Engineer </span>
+              with over 8 years of experience building <span className="text-foreground font-medium">
+                {' '}
+                scalable{' '}
+              </span>{' '}
+              and <span className="text-foreground font-medium"> highly performant </span> software systems across the
+              stack: from <span className="text-foreground font-medium"> Frontend web apps & Mobile apps</span>, to
+              <span className="text-foreground font-medium"> Distributed Backend systems</span>, to{' '}
+              <span className="text-foreground font-medium"> Deep Learning models</span>, and{' '}
               <span className="text-foreground font-medium"> Cloud Native Infrastructure</span>.
               <br />I currently work on distributed system runtimes and inference engine enhancements for Large Language
               Models at Amazon AI.
