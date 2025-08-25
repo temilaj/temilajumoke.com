@@ -16,7 +16,7 @@ export default function Hero(props: { sectionsRef: React.RefObject<(HTMLElement 
       <div className={`${playfairDisplay.variable} grid lg:grid-cols-5 gap-12 w-full`}>
         <div className="lg:col-span-3 space-y-8">
           <div className="space-y-2">
-            <p className="text-muted-foreground dark:text-white font-playfair">Hi, I'm </p>
+            <p className="text-muted-foreground dark:text-white font-playfair">Hi, I&apos;m </p>
             <h1 className="font-playfair text-6xl lg:text-7xl font-light tracking-tight">
               Temi
               <br />
@@ -48,8 +48,8 @@ export default function Hero(props: { sectionsRef: React.RefObject<(HTMLElement 
               >
                 relaxing fingerstyle guitar music
               </a>{' '}
-              and recharge in the great outdoors, whether it's kayaking on tranquil waters or snowboarding down groomed
-              slopes.
+              and recharge in the great outdoors, whether it&apos;s kayaking on tranquil waters or snowboarding down
+              groomed slopes.
             </p>
           </div>
         </div>

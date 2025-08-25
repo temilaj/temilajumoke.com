@@ -8,7 +8,7 @@ import Hero from '@/components/Hero';
 type PageSection = 'Hero';
 
 export default function Home() {
-  const [activeSection, setActiveSection] = useState<PageSection>('');
+  const [activeSection, setActiveSection] = useState<PageSection | ''>('');
   const sectionsRef = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
