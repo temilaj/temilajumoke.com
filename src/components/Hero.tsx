@@ -76,7 +76,7 @@ export default function Hero(props: { sectionsRef: React.RefObject<(HTMLElement 
             <div className="space-y-1">
               <div className="text-sm text-muted-foreground">Additional</div>
               <div className="flex flex-wrap gap-2">
-                {['Swift', 'Go'].map(skill => (
+                {['Swift', 'Go', 'Rust'].map(skill => (
                   <span
                     key={skill}
                     className="px-3 py-1 text-xs border border-border rounded-full hover:border-muted-foreground/50 transition-colors duration-300"
