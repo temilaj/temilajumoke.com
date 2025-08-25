@@ -1,8 +1,10 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import ThemeToggle from '../components/ThemeToggle';
+import Image from 'next/image';
 
+import ThemeToggle from '@/components/ThemeToggle';
+import { useTheme } from '@/hooks/useTheme';
 import Hero from '@/components/Hero';
 
 type PageSection = 'Hero';
@@ -10,6 +12,7 @@ type PageSection = 'Hero';
 export default function Home() {
   const [activeSection, setActiveSection] = useState<PageSection | ''>('');
   const sectionsRef = useRef<(HTMLElement | null)[]>([]);
+  const { theme } = useTheme();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -35,9 +38,20 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground relative">
-      {/* Header with Theme Toggle */}
-      <header className="fixed top-0 right-0 z-20 p-8">
-        <ThemeToggle />
+      <header className="fixed top-0 left-0 right-0 z-20 p-8">
+        <div className="flex justify-between items-center max-w-6xl mx-auto">
+          <div className="flex items-center">
+            <Image
+              src={theme === 'light' ? '/temilajumoke-logo-transparent.png' : '/temilajumoke-logo-transparent.png'}
+              alt="Temi Lajumoke Logo"
+              className="h-8 w-auto dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
+              width={200}
+              height={48}
+              priority
+            />
+          </div>
+          <ThemeToggle />
+        </div>
       </header>
 
       <nav className="fixed left-8 top-1/2 -translate-y-1/2 z-10 hidden lg:block">
