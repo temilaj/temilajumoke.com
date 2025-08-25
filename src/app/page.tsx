@@ -3,11 +3,15 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
+import Hero from '@/components/Hero';
+import Footer from '@/components/Footer';
+
 import ThemeToggle from '@/components/ThemeToggle';
 import { useTheme } from '@/hooks/useTheme';
-import Hero from '@/components/Hero';
 
-type PageSection = 'Hero';
+type PageSection = 'Hero' | 'Experience';
+
+const SECTIONS: PageSection[] = ['Hero'];
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState<PageSection | ''>('');
@@ -56,7 +60,7 @@ export default function Home() {
 
       <nav className="fixed left-8 top-1/2 -translate-y-1/2 z-10 hidden lg:block">
         <div className="flex flex-col gap-4">
-          {['Hero'].map(pageSection => (
+          {SECTIONS.map(pageSection => (
             <button
               key={pageSection}
               onClick={() => document.getElementById(pageSection)?.scrollIntoView({ behavior: 'smooth' })}
@@ -72,15 +76,7 @@ export default function Home() {
       <main className="max-w-6xl mx-auto px-8 lg:px-16">
         <Hero sectionsRef={sectionsRef} />
 
-        <footer className="py-16 border-t border-border">
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8">
-            <div className="space-y-2">
-              <div className="text-sm text-muted-foreground">
-                © 2014 - {new Date().getFullYear()} | Temi Lajumoke. All rights reserved.
-              </div>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </main>
 
       <div className="fixed bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none"></div>
