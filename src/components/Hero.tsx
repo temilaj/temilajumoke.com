@@ -181,6 +181,8 @@ export default function Hero(props: { sectionsRef: React.RefObject<(HTMLElement 
                 'Fastify',
                 'Spring Boot',
                 'Spring Cloud',
+                'Fast API',
+                'Flask',
                 '.NET Core',
                 'ASP.NET Core',
                 'React',
