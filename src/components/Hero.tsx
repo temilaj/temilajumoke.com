@@ -32,16 +32,16 @@ export default function Hero(props: { sectionsRef: React.RefObject<(HTMLElement 
                 scalable{' '}
               </span>{' '}
               and <span className="text-foreground font-medium"> highly performant </span> software systems across the
-              stack: from <span className="text-foreground font-medium"> Frontend web apps & Mobile apps</span>, to
-              <span className="text-foreground font-medium"> Distributed Backend systems</span>, to{' '}
-              <span className="text-foreground font-medium"> Deep Learning models</span>, and{' '}
-              <span className="text-foreground font-medium"> Cloud Native Infrastructure</span>.
+              stack: from <span className="text-foreground font-medium"> frontend web apps & mobile apps</span>, to
+              <span className="text-foreground font-medium"> distributed backend systems</span>, to{' '}
+              <span className="text-foreground font-medium"> deep learning models</span>, and{' '}
+              <span className="text-foreground font-medium"> cloud native infrastructure</span>.
               <br />I currently work on distributed system runtimes and inference engine enhancements for Large Language
               Models at Amazon AI.
             </p>
 
             <p className="font-playfair text-lg text-muted-foreground leading-relaxed">
-              Beyond Engineering, I compose{' '}
+              Beyond engineering, I compose{' '}
               <a
                 href="https://soundcloud.com/temilaj"
                 target="_blank"
