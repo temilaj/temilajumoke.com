@@ -2,15 +2,15 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import ThemeToggle from '@/components/ThemeToggle';
 import Hero from '@/components/Hero';
 import Footer from '@/components/Footer';
-import Link from 'next/link';
 
 import { useTheme } from '@/hooks/useTheme';
 
-type PageSection = 'Hero' | 'Experience';
+type PageSection = 'Hero';
 
 const SECTIONS: PageSection[] = ['Hero'];
 
@@ -43,12 +43,16 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground relative">
-      <header className="fixed top-0 left-0 right-0 z-20 p-8">
+      <header role="banner" className="fixed top-0 left-0 right-0 z-20 p-8">
         <div className="flex justify-between items-center max-w-6xl mx-auto">
-          <Link className="pointer-events-none flex place-items-center gap-2 lg:pointer-events-auto lg:p-0" href="/">
+          <Link
+            className="pointer-events-none flex place-items-center gap-2 lg:pointer-events-auto lg:p-0 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:rounded-md"
+            href="/"
+            aria-label="Temi Lajumoke - Home"
+          >
             <Image
               src={theme === 'light' ? '/temilajumoke-logo-transparent.png' : '/temilajumoke-logo-transparent.png'}
-              alt="Temi Lajumoke Logo"
+              alt="Temi Lajumoke Logo - Software & Machine Learning Engineer"
               className="h-8 lg:h-12 w-auto dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
               width={200}
               height={48}
@@ -59,22 +63,28 @@ export default function Home() {
         </div>
       </header>
 
-      <nav className="fixed left-8 top-1/2 -translate-y-1/2 z-10 hidden lg:block">
-        <div className="flex flex-col gap-4">
+      <nav
+        role="navigation"
+        aria-label="Page sections navigation"
+        className="fixed left-8 top-1/2 -translate-y-1/2 z-10 hidden lg:block"
+      >
+        <div className="flex flex-col gap-4" role="list">
           {SECTIONS.map(pageSection => (
             <button
               key={pageSection}
               onClick={() => document.getElementById(pageSection)?.scrollIntoView({ behavior: 'smooth' })}
-              className={`w-2 h-8 rounded-full transition-all duration-500 ${
+              className={`w-2 h-8 rounded-full transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:w-2 ${
                 activeSection === pageSection ? 'bg-foreground' : 'bg-muted-foreground/30 hover:bg-muted-foreground/60'
               }`}
-              aria-label={`Navigate to ${pageSection}`}
+              aria-label={`Navigate to ${pageSection} section`}
+              aria-current={activeSection === pageSection ? 'true' : 'false'}
+              role="listitem"
             />
           ))}
         </div>
       </nav>
 
-      <main className="max-w-7xl mx-auto px-8 lg:px-16 pt-22 lg:pt-0">
+      <main id="main-content" role="main" className="max-w-7xl mx-auto px-8 lg:px-16 pt-22 lg:pt-0">
         <Hero sectionsRef={sectionsRef} />
 
         <Footer />
