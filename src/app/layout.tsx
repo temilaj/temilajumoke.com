@@ -1,12 +1,14 @@
 import './globals.css';
+
 import type React from 'react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { ThemeProvider } from '../context/ThemeProvider';
-import { playfairDisplay } from './fonts';
 import { Author } from 'next/dist/lib/metadata/types/metadata-types';
 import { OpenGraph } from 'next/dist/lib/metadata/types/opengraph-types';
 import { Twitter } from 'next/dist/lib/metadata/types/twitter-types';
+
+import { ThemeProvider } from '@/context/ThemeProvider';
+import { playfairDisplay } from '@/app/fonts';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -48,13 +50,18 @@ const twitter: Twitter = {
 };
 
 export const metadata: Metadata = {
-  title: 'Home | Temi Lajumoke',
-  description: "Hi, I'm Temi Lajumoke.",
-  keywords: 'Temilaj, Temi Lajumoke, Software Engineer, Machine Learning Engineer, Software Developer,',
+  title: 'Home | Temi Lajumoke - Software & Machine Learning Engineer',
+  description: "I'm a Software & Machine Learning Engineer with over 8 years of experience building scalable, high-performance systems across the full stack.",
+  keywords: 'Temilaj, Temi Lajumoke, Software Engineer, Machine Learning Engineer, Software Developer, Full Stack Developer, AWS, React, Python, Java, TypeScript',
   authors: [author],
   robots: 'index, follow',
   openGraph,
   twitter,
+  viewport: 'width=device-width, initial-scale=1',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#000000' }
+  ],
 };
 
 export default function RootLayout({
@@ -65,6 +72,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${playfairDisplay.variable} antialiased`}>
+        <a 
+          href="#main-content" 
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-foreground focus:text-background focus:rounded-md focus:shadow-lg transition-all"
+        >
+          Skip to main content
+        </a>
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>

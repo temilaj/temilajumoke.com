@@ -3,10 +3,11 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
+import ThemeToggle from '@/components/ThemeToggle';
 import Hero from '@/components/Hero';
 import Footer from '@/components/Footer';
+import Link from 'next/link';
 
-import ThemeToggle from '@/components/ThemeToggle';
 import { useTheme } from '@/hooks/useTheme';
 
 type PageSection = 'Hero' | 'Experience';
@@ -44,16 +45,16 @@ export default function Home() {
     <div className="min-h-screen bg-background text-foreground relative">
       <header className="fixed top-0 left-0 right-0 z-20 p-8">
         <div className="flex justify-between items-center max-w-6xl mx-auto">
-          <div className="flex items-center">
+          <Link className="pointer-events-none flex place-items-center gap-2 lg:pointer-events-auto lg:p-0" href="/">
             <Image
               src={theme === 'light' ? '/temilajumoke-logo-transparent.png' : '/temilajumoke-logo-transparent.png'}
               alt="Temi Lajumoke Logo"
-              className="h-8 w-auto dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
+              className="h-8 lg:h-12 w-auto dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
               width={200}
               height={48}
               priority
             />
-          </div>
+          </Link>
           <ThemeToggle />
         </div>
       </header>
@@ -73,7 +74,7 @@ export default function Home() {
         </div>
       </nav>
 
-      <main className="max-w-6xl mx-auto px-8 lg:px-16">
+      <main className="max-w-7xl mx-auto px-8 lg:px-16 pt-22 lg:pt-0">
         <Hero sectionsRef={sectionsRef} />
 
         <Footer />
