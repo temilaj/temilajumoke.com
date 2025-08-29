@@ -29,6 +29,7 @@
 
 @theme inline {
   --font-playfair: var(--font-playfair-display);
+  --font-roboto: var(--font-roboto);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);

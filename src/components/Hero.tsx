@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { playfairDisplay } from '../app/fonts';
+import { playfairDisplay, roboto } from '../app/fonts';
 
 export default function Hero(props: { sectionsRef: React.RefObject<(HTMLElement | null)[]> }) {
   const { sectionsRef } = props;
@@ -14,7 +14,7 @@ export default function Hero(props: { sectionsRef: React.RefObject<(HTMLElement 
       className="min-h-screen flex items-center opacity-0"
       aria-label="Introduction and professional overview"
     >
-      <div className={`${playfairDisplay.variable} grid lg:grid-cols-5 gap-12 w-full`}>
+      <div className={`${playfairDisplay.variable} ${roboto.variable} grid lg:grid-cols-5 gap-12 w-full`}>
         <div className="lg:col-span-3 space-y-8">
           <div className="space-y-2">
             <p className="text-muted-foreground dark:text-white font-playfair">Hi, I&apos;m </p>
@@ -143,75 +143,37 @@ export default function Hero(props: { sectionsRef: React.RefObject<(HTMLElement 
         </div>
 
         <div className="lg:col-span-2 flex flex-col justify-end space-y-6">
-          {/* Languages Section */}
-          <div className="space-y-3" aria-labelledby="languages-heading">
-            <h2 id="languages-heading" className="text-base text-foreground font-medium">
-              Languages
+          <div className="space-y-3" aria-labelledby="research-interests-heading">
+            <h2 id="research-interests-heading" className="text-xl text-foreground font-medium font-playfair">
+              Current Research Interests
             </h2>
-
-            <div className="space-y-1">
-              <h3 className="text-sm text-muted-foreground">Core</h3>
-              <div className="flex flex-wrap gap-2" role="list" aria-label="Core programming languages">
-                {['TypeScript', 'JavaScript', 'Python', 'Java', 'C#', 'HTML5', 'CSS3', 'SQL'].map(skill => (
-                  <span
-                    key={skill}
-                    className="px-3 py-1 text-xs border border-border rounded-full hover:border-muted-foreground/50 transition-colors duration-300"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-1">
-              <h3 className="text-sm text-muted-foreground">Additional</h3>
-              <div className="flex flex-wrap gap-2">
-                {['Swift', 'Go', 'Rust'].map(skill => (
-                  <span
-                    key={skill}
-                    className="px-3 py-1 text-xs border border-border rounded-full hover:border-muted-foreground/50 transition-colors duration-300"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Software Frameworks Section */}
-          <div className="space-y-3">
-            <h2 id="Frameworks-heading" className="text-base text-foreground font-medium">
-              Frameworks
-            </h2>
-            <div className="flex flex-wrap gap-2">
-              {[
-                'Pytorch',
-                'Node.js',
-                'Express',
-                'Fastify',
-                'Spring Boot',
-                'Spring Cloud',
-                'Fast API',
-                'Flask',
-                'ASP.NET Core',
-                'React',
-                'React Native',
-                'Vue',
-                'Angular',
-                'Knockout.js',
-                'JQuery',
-                'Redux',
-                'Apollo',
-                'LangGraph',
-                'Model Context Protocol (MCP)',
-              ].map(skill => (
-                <span
-                  key={skill}
-                  className="px-3 py-1 text-xs border border-border rounded-full hover:border-muted-foreground/50 transition-colors duration-300"
+            <div className="space-y-4">
+              <p className="font-playfair text-lg text-muted-foreground leading-relaxed">
+                I&apos;m currently diving deep into building, training and optmizing inference for small language models
+                using similar architectures for large language models, while exploring orchestration and observability
+                strategies for seamlessly integrating AI agents with traditional software engineering workflows.
+              </p>
+              <p className="font-playfair text-lg text-muted-foreground leading-relaxed">
+                Published work include: a{' '}
+                <a
+                  href="https://github.com/temilaj/gpt-neo"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500 dark:text-blue-500 hover:underline"
                 >
-                  {skill}
-                </span>
-              ))}
+                  GPT-inspired decoder-only model
+                </a>{' '}
+                and the original{' '}
+                <a
+                  href="https://github.com/temilaj/transformer-model-from-scratch"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500 dark:text-blue-500 hover:underline"
+                >
+                  transformer architecture
+                </a>{' '}
+                from the &quot;Attention is All You Need&quot; paper.
+              </p>
             </div>
           </div>
         </div>

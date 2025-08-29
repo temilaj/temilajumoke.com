@@ -6,13 +6,15 @@ import Link from 'next/link';
 
 import ThemeToggle from '@/components/ThemeToggle';
 import Hero from '@/components/Hero';
+import Skills from '@/components/Skills';
+import Experience from '@/components/Experience';
 import Footer from '@/components/Footer';
 
 import { useTheme } from '@/hooks/useTheme';
 
-type PageSection = 'Hero';
+type PageSection = 'Hero' | 'Skills' | 'Experience';
 
-const SECTIONS: PageSection[] = ['Hero'];
+const SECTIONS: PageSection[] = ['Hero', 'Skills', 'Experience'];
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState<PageSection | ''>('');
@@ -86,7 +88,8 @@ export default function Home() {
 
       <main id="main-content" role="main" className="max-w-7xl mx-auto px-8 lg:px-16 pt-22 lg:pt-0">
         <Hero sectionsRef={sectionsRef} />
-
+        <Skills sectionsRef={sectionsRef} />
+        <Experience sectionsRef={sectionsRef} />
         <Footer />
       </main>
 
