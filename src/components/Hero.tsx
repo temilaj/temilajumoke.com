@@ -145,16 +145,17 @@ export default function Hero(props: { sectionsRef: React.RefObject<(HTMLElement 
         <div className="lg:col-span-2 flex flex-col justify-end space-y-6">
           <div className="space-y-3" aria-labelledby="research-interests-heading">
             <h2 id="research-interests-heading" className="text-xl text-foreground font-medium font-playfair">
-              Current Research Interests
+              Current Personal Research Focus
             </h2>
             <div className="space-y-4">
               <p className="font-playfair text-lg text-muted-foreground leading-relaxed">
-                I&apos;m currently diving deep into building, training and optmizing inference for small language models
-                using similar architectures for large language models, while exploring orchestration and observability
-                strategies for seamlessly integrating AI agents with traditional software engineering workflows.
+                I&apos;m fascinated by making AI more accessible and efficient. Currently I&apos;m focused on building
+                and training small language models (SLMs) that empower AI agents to run anywhere, while maintaining the
+                power of their larger cousins. My work explores orchestration and observability strategies for agentic
+                systems using these SLMs.
               </p>
               <p className="font-playfair text-lg text-muted-foreground leading-relaxed">
-                Published work include: a{' '}
+                Recent implementations include a{' '}
                 <a
                   href="https://github.com/temilaj/gpt-neo"
                   target="_blank"
@@ -163,7 +164,7 @@ export default function Hero(props: { sectionsRef: React.RefObject<(HTMLElement 
                 >
                   GPT-inspired decoder-only model
                 </a>{' '}
-                and the original{' '}
+                and a ground-up recreation of the original{' '}
                 <a
                   href="https://github.com/temilaj/transformer-model-from-scratch"
                   target="_blank"
@@ -172,7 +173,8 @@ export default function Hero(props: { sectionsRef: React.RefObject<(HTMLElement 
                 >
                   transformer architecture
                 </a>{' '}
-                from the &quot;Attention is All You Need&quot; paper.
+                from the &quot;Attention is All You Need&quot; paper. Always excited to discuss the intersection of
+                software and ML with fellow builders.
               </p>
             </div>
           </div>
