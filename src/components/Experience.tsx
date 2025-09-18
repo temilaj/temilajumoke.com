@@ -49,7 +49,7 @@ export default function Experience(props: { sectionsRef: React.RefObject<(HTMLEl
               year: '2018-2020',
               role: 'Senior Software Engineer',
               company: 'Andela',
-              description: 'Created booking flow optimizations and host management tools.',
+              description: '',
               tech: [],
             },
             {

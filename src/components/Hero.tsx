@@ -149,13 +149,13 @@ export default function Hero(props: { sectionsRef: React.RefObject<(HTMLElement 
             </h2>
             <div className="space-y-4">
               <p className="font-playfair text-lg text-muted-foreground leading-relaxed">
-                I&apos;m fascinated by making AI more accessible and efficient. Currently I&apos;m focused on building
+                I&apos;m fascinated by making AI more accessible and efficient. Currently, I&apos;m focused on building
                 and training small language models (SLMs) that empower AI agents to run anywhere, while maintaining the
                 power of their larger cousins. My work explores orchestration and observability strategies for agentic
                 systems using these SLMs.
               </p>
               <p className="font-playfair text-lg text-muted-foreground leading-relaxed">
-                Recent implementations include a{' '}
+                Recent (published) work include a{' '}
                 <a
                   href="https://github.com/temilaj/gpt-neo"
                   target="_blank"
@@ -173,8 +173,7 @@ export default function Hero(props: { sectionsRef: React.RefObject<(HTMLElement 
                 >
                   transformer architecture
                 </a>{' '}
-                from the &quot;Attention is All You Need&quot; paper. Always excited to discuss the intersection of
-                software and ML with fellow builders.
+                from the &quot;Attention is All You Need&quot; paper.
               </p>
             </div>
           </div>
