@@ -28,7 +28,7 @@ export default function Hero(props: { sectionsRef: React.RefObject<(HTMLElement 
           <div className="space-y-6">
             <p className="font-playfair text-lg text-muted-foreground leading-relaxed">
               I&apos;m a<span className="text-foreground font-medium"> Software & Machine Learning Engineer </span>
-              with over 8 years of experience building <span className="text-foreground font-medium">
+              with over 9 years of experience building <span className="text-foreground font-medium">
                 {' '}
                 scalable{' '}
               </span>{' '}

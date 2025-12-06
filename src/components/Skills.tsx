@@ -123,7 +123,7 @@ export default function Skills(props: { sectionsRef: React.RefObject<(HTMLElemen
             </h3>
             <div className="flex flex-wrap gap-3">
               {[
-                'AWS (EC2, ECS, Lambda, Cloudwatch, Cloud Formation, CDK, VPC, S3)',
+                'AWS (EC2, ECS, Lambda, Cloudwatch, Cloud Formation, CDK, VPC, S3, etc.)',
                 'Docker',
                 'Kubernetes',
                 'Prometheus',
