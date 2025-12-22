@@ -9,6 +9,7 @@ import { Twitter } from 'next/dist/lib/metadata/types/twitter-types';
 
 import { ThemeProvider } from '@/context/ThemeProvider';
 import { playfairDisplay, roboto } from '@/app/fonts';
+import AnalyticsTracker from '@/components/analytics/AnalyticsTracker';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -72,12 +73,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${playfairDisplay.variable} ${roboto.variable} antialiased`}>
-        <a 
-          href="#main-content" 
+        <a
+          href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-foreground focus:text-background focus:rounded-md focus:shadow-lg transition-all"
         >
           Skip to main content
         </a>
+        <AnalyticsTracker />
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
