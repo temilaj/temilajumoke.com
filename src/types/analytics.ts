@@ -31,7 +31,7 @@ export interface AnalyticsStats {
 export interface TopPage {
   path: string;
   views: number;
-  unique_visitors: number;
+  uniqueVisitors: number;
 }
 
 export interface TopReferrer {

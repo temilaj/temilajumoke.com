@@ -94,7 +94,7 @@ export function getAnalyticsStats(days: number = 30): AnalyticsStats {
   const pageviewsByDay = Array.from(dayMap.entries())
     .map(([date, count]) => ({ date, count }))
     .sort((a, b) => b.date.localeCompare(a.date))
-    .slice(0, 30);
+    .slice(0, days);
 
   return {
     totalPageviews,
@@ -123,7 +123,7 @@ export function getTopPages(days: number = 30, limit: number = 10): TopPage[] {
     .map(([path, data]) => ({
       path,
       views: data.views,
-      unique_visitors: data.sessions.size,
+      uniqueVisitors: data.sessions.size,
     }))
     .sort((a, b) => b.views - a.views)
     .slice(0, limit);

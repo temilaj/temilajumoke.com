@@ -29,7 +29,6 @@ export default function AnalyticsTracker() {
     const sessionId = getOrCreateSessionId();
     const referrer = document.referrer || '';
 
-    // Send tracking request asynchronously (non-blocking)
     const trackPageView = async () => {
       try {
         await fetch('/api/analytics/track', {

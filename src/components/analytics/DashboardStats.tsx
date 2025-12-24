@@ -1,13 +1,14 @@
 import React from 'react';
 import { getAnalyticsStats } from '@/lib/analytics/queries';
 
+const days = 90;
 export default async function DashboardStats() {
-  const stats = getAnalyticsStats(30);
+  const stats = getAnalyticsStats(days);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <StatCard title="Total Pageviews" value={stats.totalPageviews.toLocaleString()} subtitle="Last 30 days" />
-      <StatCard title="Unique Visitors" value={stats.uniqueVisitors.toLocaleString()} subtitle="Last 30 days" />
+      <StatCard title="Total Pageviews" value={stats.totalPageviews.toLocaleString()} subtitle={`Last ${days} days`} />
+      <StatCard title="Unique Visitors" value={stats.uniqueVisitors.toLocaleString()} subtitle={`Last ${days} days`} />
     </div>
   );
 }
