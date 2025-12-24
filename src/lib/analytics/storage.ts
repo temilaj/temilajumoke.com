@@ -20,7 +20,7 @@ export function initializeLogFile(): void {
 
 export function appendToLog(
   timestamp: number,
-  sessionId: string,
+  visitorId: string,
   pagePath: string,
   referrer: string,
   userAgent: string,
@@ -38,7 +38,7 @@ export function appendToLog(
     const line =
       [
         timestamp.toString(),
-        sessionId,
+        visitorId,
         pagePath,
         escapeCSV(referrer || ''),
         escapeCSV(userAgent),

@@ -44,14 +44,14 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { sessionId, path, referrer } = body;
+    const { visitorId, path, referrer } = body;
 
-    if (!sessionId || !path) {
+    if (!visitorId || !path) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
     const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-    if (!uuidRegex.test(sessionId)) {
+    if (!uuidRegex.test(visitorId)) {
       return NextResponse.json({ error: 'Invalid session ID' }, { status: 400 });
     }
 
@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
 
     // Track the pageview
     trackPageView({
-      sessionId,
+      visitorId,
       path,
       referrer: referrer || null,
       userAgent,

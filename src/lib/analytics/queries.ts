@@ -82,8 +82,8 @@ export function getAnalyticsStats(days: number = 30): AnalyticsStats {
   const totalPageviews = filteredRows.length;
 
   // Unique visitors (unique session IDs)
-  const uniqueSessionIds = new Set(filteredRows.map(row => row.sessionId));
-  const uniqueVisitors = uniqueSessionIds.size;
+  const uniqueVisitorIds = new Set(filteredRows.map(row => row.visitorId));
+  const uniqueVisitors = uniqueVisitorIds.size;
 
   const dayMap = new Map<string, number>();
   for (const row of filteredRows) {
@@ -116,7 +116,7 @@ export function getTopPages(days: number = 30, limit: number = 10): TopPage[] {
     }
     const page = pageMap.get(row.path)!;
     page.views++;
-    page.sessions.add(row.sessionId);
+    page.sessions.add(row.visitorId);
   }
 
   return Array.from(pageMap.entries())
