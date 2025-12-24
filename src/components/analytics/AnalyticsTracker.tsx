@@ -3,19 +3,20 @@
 import { useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 
-// Session ID stored in sessionStorage
-function getOrCreateSessionId(): string {
+import { generateVistorId } from '@/lib/analytics/utils';
+
+function getOrCreateVisitorId(): string {
   if (typeof window === 'undefined') return '';
 
-  const key = 'analytics_session_id';
-  let sessionId = sessionStorage.getItem(key);
+  const key = 'analytics_visitor_id';
+  let visitorId = localStorage.getItem(key);
 
-  if (!sessionId) {
-    sessionId = crypto.randomUUID();
-    sessionStorage.setItem(key, sessionId);
+  if (!visitorId) {
+    visitorId = generateVistorId();
+    localStorage.setItem(key, visitorId);
   }
 
-  return sessionId;
+  return visitorId;
 }
 
 export default function AnalyticsTracker() {
@@ -26,7 +27,7 @@ export default function AnalyticsTracker() {
     // Skip if already tracked this path in this session
     if (trackedPaths.current.has(pathname)) return;
 
-    const sessionId = getOrCreateSessionId();
+    const visitorId = getOrCreateVisitorId();
     const referrer = document.referrer || '';
 
     const trackPageView = async () => {
@@ -35,7 +36,7 @@ export default function AnalyticsTracker() {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            sessionId,
+            sessionId: visitorId,
             path: pathname,
             referrer,
           }),

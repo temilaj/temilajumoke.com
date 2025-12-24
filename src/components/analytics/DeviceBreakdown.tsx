@@ -11,7 +11,7 @@ export default async function DeviceBreakdown() {
 
       <div className="space-y-4">
         <Section title="Browsers" data={stats.browsers.slice(0, 5)} labelKey="browser" />
-        <Section title="Devices" data={stats.devices} labelKey="device_type" />
+        <Section title="Devices" data={stats.devices} labelKey="deviceType" />
         <Section title="Operating Systems" data={stats.os.slice(0, 5)} labelKey="os" />
       </div>
     </div>

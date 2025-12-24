@@ -31,14 +31,14 @@ function parseCSVLine(line: string): CSVRow | null {
 
     return {
       timestamp: parseInt(values[0], 10),
-      session_id: values[1],
+      visitorId: values[1],
       path: values[2],
       referrer: values[3],
       user_agent: values[4],
       browser: values[5],
-      device_type: values[6],
+      deviceType: values[6],
       os: values[7],
-      ip_hash: values[8],
+      ipHash: values[8],
     };
   } catch {
     return null;
@@ -82,7 +82,7 @@ export function getAnalyticsStats(days: number = 30): AnalyticsStats {
   const totalPageviews = filteredRows.length;
 
   // Unique visitors (unique session IDs)
-  const uniqueSessionIds = new Set(filteredRows.map(row => row.session_id));
+  const uniqueSessionIds = new Set(filteredRows.map(row => row.sessionId));
   const uniqueVisitors = uniqueSessionIds.size;
 
   const dayMap = new Map<string, number>();
@@ -116,7 +116,7 @@ export function getTopPages(days: number = 30, limit: number = 10): TopPage[] {
     }
     const page = pageMap.get(row.path)!;
     page.views++;
-    page.sessions.add(row.session_id);
+    page.sessions.add(row.sessionId);
   }
 
   return Array.from(pageMap.entries())
@@ -160,7 +160,7 @@ export function getDeviceStats(days: number = 30): DeviceStats {
 
   for (const row of filteredRows) {
     browserMap.set(row.browser, (browserMap.get(row.browser) || 0) + 1);
-    deviceMap.set(row.device_type, (deviceMap.get(row.device_type) || 0) + 1);
+    deviceMap.set(row.deviceType, (deviceMap.get(row.deviceType) || 0) + 1);
     osMap.set(row.os, (osMap.get(row.os) || 0) + 1);
   }
 
@@ -169,7 +169,7 @@ export function getDeviceStats(days: number = 30): DeviceStats {
       .map(([browser, count]) => ({ browser, count }))
       .sort((a, b) => b.count - a.count),
     devices: Array.from(deviceMap.entries())
-      .map(([device_type, count]) => ({ device_type, count }))
+      .map(([deviceType, count]) => ({ deviceType, count }))
       .sort((a, b) => b.count - a.count),
     os: Array.from(osMap.entries())
       .map(([os, count]) => ({ os, count }))

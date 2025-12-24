@@ -33,7 +33,7 @@ export function getClientIp(request: Request): string {
   return 'unknown';
 }
 
-export function generateSessionId(): string {
+export function generateVistorId(): string {
   return crypto.randomUUID();
 }
 

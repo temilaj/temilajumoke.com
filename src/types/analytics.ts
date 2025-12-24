@@ -1,5 +1,5 @@
 export interface PageViewData {
-  sessionId: string;
+  visitorId: string;
   path: string;
   referrer: string | null;
   userAgent: string;
@@ -12,14 +12,14 @@ export interface PageViewData {
 
 export interface CSVRow {
   timestamp: number;
-  session_id: string;
+  visitorId: string;
   path: string;
   referrer: string;
   user_agent: string;
   browser: string;
-  device_type: string;
+  deviceType: string;
   os: string;
-  ip_hash: string;
+  ipHash: string;
 }
 
 export interface AnalyticsStats {
@@ -41,6 +41,6 @@ export interface TopReferrer {
 
 export interface DeviceStats {
   browsers: Array<{ browser: string; count: number }>;
-  devices: Array<{ device_type: string; count: number }>;
+  devices: Array<{ deviceType: string; count: number }>;
   os: Array<{ os: string; count: number }>;
 }
