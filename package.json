@@ -11,23 +11,23 @@
     "format": "prettier --write \"**/*.{ts,tsx}\""
   },
   "dependencies": {
-    "next": "^15.5.7",
-    "react": "^19.2.1",
-    "react-dom": "^19.2.1",
-    "ua-parser-js": "^1.0.37"
+    "next": "^15.5.9",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "ua-parser-js": "^2.0.7"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4.1.17",
-    "@types/node": "^24.10.1",
+    "@eslint/eslintrc": "^3.3.3",
+    "@tailwindcss/postcss": "^4.1.18",
+    "@types/node": "^24.10.4",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@types/ua-parser-js": "^0.7.39",
-    "eslint": "^9",
-    "eslint-config-next": "15.5.0",
+    "eslint": "^9.39.2",
+    "eslint-config-next": "^15.5.9",
     "eslint-config-prettier": "^10.1.8",
-    "tailwindcss": "^4",
-    "typescript": "^5",
-    "typescript-eslint": "^8.41.0"
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.50.1"
   }
 }
