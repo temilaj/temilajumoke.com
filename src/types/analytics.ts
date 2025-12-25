@@ -27,6 +27,7 @@ export interface CSVRow {
 export interface AnalyticsStats {
   totalPageviews: number;
   uniqueVisitors: number;
+  uniqueSessions: number;
   pageviewsByDay: Array<{ date: string; count: number }>;
 }
 

@@ -6,9 +6,10 @@ export default async function DashboardStats() {
   const stats = getAnalyticsStats(days);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       <StatCard title="Total Pageviews" value={stats.totalPageviews.toLocaleString()} subtitle={`Last ${days} days`} />
       <StatCard title="Unique Visitors" value={stats.uniqueVisitors.toLocaleString()} subtitle={`Last ${days} days`} />
+      <StatCard title="Unique Sessions" value={stats.uniqueSessions.toLocaleString()} subtitle={`Last ${days} days`} />
     </div>
   );
 }
