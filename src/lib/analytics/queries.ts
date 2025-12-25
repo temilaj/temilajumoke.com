@@ -82,9 +82,11 @@ export function getAnalyticsStats(days: number = 30): AnalyticsStats {
 
   const totalPageviews = filteredRows.length;
 
-  // Unique visitors (unique session IDs)
   const uniqueVisitorIds = new Set(filteredRows.map(row => row.visitorId));
   const uniqueVisitors = uniqueVisitorIds.size;
+
+  const uniqueSessionIds = new Set(filteredRows.map(row => row.sessionId));
+  const uniqueSessions = uniqueSessionIds.size;
 
   const dayMap = new Map<string, number>();
   for (const row of filteredRows) {
@@ -100,6 +102,7 @@ export function getAnalyticsStats(days: number = 30): AnalyticsStats {
   return {
     totalPageviews,
     uniqueVisitors,
+    uniqueSessions,
     pageviewsByDay,
   };
 }
