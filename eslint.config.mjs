@@ -21,7 +21,16 @@ const eslintConfig = [
   pluginReact.configs.flat.recommended,
   eslintConfigPrettier,
   {
-    ignores: ['node_modules/**', '.next/**', 'out/**', 'build/**', '**/*.log', '**/.env', 'next-env.d.ts'],
+    ignores: [
+      'node_modules/**',
+      '.next/**',
+      'out/**',
+      'build/**',
+      '**/*.log',
+      '**/.env',
+      'next-env.d.ts',
+      'migrate-analytics.js',
+    ],
   },
 ];
 

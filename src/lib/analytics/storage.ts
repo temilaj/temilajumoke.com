@@ -5,7 +5,7 @@ import { escapeCSV } from '@/lib/analytics/utils';
 
 const LOG_FILE_NAME = process.env.ANALYTICS_FILE_NAME!;
 const LOG_FILE_PATH = path.join(process.cwd(), LOG_FILE_NAME);
-const CSV_HEADER = 'timestamp,session_id,path,referrer,user_agent,browser,device_type,os,ip_hash\n';
+const CSV_HEADER = 'timestamp,visitor_id,session_id,path,referrer,user_agent,browser,device_type,os,ip_hash\n';
 
 export function initializeLogFile(): void {
   try {
@@ -21,6 +21,7 @@ export function initializeLogFile(): void {
 export function appendToLog(
   timestamp: number,
   visitorId: string,
+  sessionId: string,
   pagePath: string,
   referrer: string,
   userAgent: string,
@@ -39,6 +40,7 @@ export function appendToLog(
       [
         timestamp.toString(),
         visitorId,
+        sessionId,
         pagePath,
         escapeCSV(referrer || ''),
         escapeCSV(userAgent),

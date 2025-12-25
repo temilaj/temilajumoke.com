@@ -1,5 +1,6 @@
 export interface PageViewData {
   visitorId: string;
+  sessionId: string;
   path: string;
   referrer: string | null;
   userAgent: string;
@@ -13,6 +14,7 @@ export interface PageViewData {
 export interface CSVRow {
   timestamp: number;
   visitorId: string;
+  sessionId: string;
   path: string;
   referrer: string;
   user_agent: string;

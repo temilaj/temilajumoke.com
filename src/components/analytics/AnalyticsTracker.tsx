@@ -3,8 +3,6 @@
 import { useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 
-import { generateVistorId } from '@/lib/analytics/utils';
-
 function getOrCreateVisitorId(): string {
   if (typeof window === 'undefined') return '';
 
@@ -12,11 +10,25 @@ function getOrCreateVisitorId(): string {
   let visitorId = localStorage.getItem(key);
 
   if (!visitorId) {
-    visitorId = generateVistorId();
+    visitorId = crypto.randomUUID();
     localStorage.setItem(key, visitorId);
   }
 
   return visitorId;
+}
+
+function getOrCreateSessionId(): string {
+  if (typeof window === 'undefined') return '';
+
+  const key = 'analytics_session_id';
+  let sessionId = sessionStorage.getItem(key);
+
+  if (!sessionId) {
+    sessionId = crypto.randomUUID();
+    sessionStorage.setItem(key, sessionId);
+  }
+
+  return sessionId;
 }
 
 export default function AnalyticsTracker() {
@@ -28,6 +40,7 @@ export default function AnalyticsTracker() {
     if (trackedPaths.current.has(pathname)) return;
 
     const visitorId = getOrCreateVisitorId();
+    const sessionId = getOrCreateSessionId();
     const referrer = document.referrer || '';
 
     const trackPageView = async () => {
@@ -36,7 +49,8 @@ export default function AnalyticsTracker() {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            sessionId: visitorId,
+            visitorId,
+            sessionId,
             path: pathname,
             referrer,
           }),

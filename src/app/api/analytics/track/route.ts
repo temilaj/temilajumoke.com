@@ -35,7 +35,6 @@ function checkRateLimit(ipHash: string): boolean {
 
 export async function POST(request: NextRequest) {
   try {
-    // Get client IP and hash it
     const clientIp = getClientIp(request);
     const ipHash = hashIp(clientIp);
 
@@ -44,9 +43,9 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { visitorId, path, referrer } = body;
+    const { visitorId, sessionId, path, referrer } = body;
 
-    if (!visitorId || !path) {
+    if (!visitorId || !path || !sessionId) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
@@ -65,6 +64,7 @@ export async function POST(request: NextRequest) {
     // Track the pageview
     trackPageView({
       visitorId,
+      sessionId,
       path,
       referrer: referrer || null,
       userAgent,

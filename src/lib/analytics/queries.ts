@@ -27,18 +27,19 @@ function parseCSVLine(line: string): CSVRow | null {
     }
     values.push(current);
 
-    if (values.length !== 9) return null;
+    if (values.length !== 10) return null;
 
     return {
       timestamp: parseInt(values[0], 10),
       visitorId: values[1],
-      path: values[2],
-      referrer: values[3],
-      user_agent: values[4],
-      browser: values[5],
-      deviceType: values[6],
-      os: values[7],
-      ipHash: values[8],
+      sessionId: values[2],
+      path: values[3],
+      referrer: values[4],
+      user_agent: values[5],
+      browser: values[6],
+      deviceType: values[7],
+      os: values[8],
+      ipHash: values[9],
     };
   } catch {
     return null;

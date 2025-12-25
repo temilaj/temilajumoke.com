@@ -6,6 +6,7 @@ export function trackPageView(data: PageViewData): void {
     appendToLog(
       data.timestamp,
       data.visitorId,
+      data.sessionId,
       data.path,
       data.referrer || '',
       data.userAgent,
