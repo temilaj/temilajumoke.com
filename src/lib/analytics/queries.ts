@@ -46,7 +46,7 @@ function parseCSVLine(line: string): CSVRow | null {
   }
 }
 
-function parseCSVLog(): CSVRow[] {
+export function parseCSVLog(): CSVRow[] {
   try {
     const logPath = getLogFilePath();
 
@@ -74,11 +74,11 @@ function parseCSVLog(): CSVRow[] {
   }
 }
 
-export function getAnalyticsStats(days: number = 30): AnalyticsStats {
-  const rows = parseCSVLog();
+export function getAnalyticsStats(days: number = 30, rows?: CSVRow[]): AnalyticsStats {
+  const parsedRows = rows ?? parseCSVLog();
   const cutoff = Math.floor(Date.now() / 1000) - days * 24 * 60 * 60;
 
-  const filteredRows = rows.filter(row => row.timestamp > cutoff);
+  const filteredRows = parsedRows.filter(row => row.timestamp > cutoff);
 
   const totalPageviews = filteredRows.length;
 
@@ -107,11 +107,11 @@ export function getAnalyticsStats(days: number = 30): AnalyticsStats {
   };
 }
 
-export function getTopPages(days: number = 30, limit: number = 10): TopPage[] {
-  const rows = parseCSVLog();
+export function getTopPages(days: number = 30, limit: number = 10, rows?: CSVRow[]): TopPage[] {
+  const parsedRows = rows ?? parseCSVLog();
   const cutoff = Math.floor(Date.now() / 1000) - days * 24 * 60 * 60;
 
-  const filteredRows = rows.filter(row => row.timestamp > cutoff);
+  const filteredRows = parsedRows.filter(row => row.timestamp > cutoff);
 
   const pageMap = new Map<string, { views: number; sessions: Set<string> }>();
   for (const row of filteredRows) {
@@ -133,11 +133,11 @@ export function getTopPages(days: number = 30, limit: number = 10): TopPage[] {
     .slice(0, limit);
 }
 
-export function getTopReferrers(days: number = 30, limit: number = 10): TopReferrer[] {
-  const rows = parseCSVLog();
+export function getTopReferrers(days: number = 30, limit: number = 10, rows?: CSVRow[]): TopReferrer[] {
+  const parsedRows = rows ?? parseCSVLog();
   const cutoff = Math.floor(Date.now() / 1000) - days * 24 * 60 * 60;
 
-  const filteredRows = rows.filter(row => row.timestamp > cutoff && row.referrer);
+  const filteredRows = parsedRows.filter(row => row.timestamp > cutoff && row.referrer);
 
   const referrerMap = new Map<string, number>();
   for (const row of filteredRows) {
@@ -152,11 +152,11 @@ export function getTopReferrers(days: number = 30, limit: number = 10): TopRefer
     .slice(0, limit);
 }
 
-export function getDeviceStats(days: number = 30): DeviceStats {
-  const rows = parseCSVLog();
+export function getDeviceStats(days: number = 30, rows?: CSVRow[]): DeviceStats {
+  const parsedRows = rows ?? parseCSVLog();
   const cutoff = Math.floor(Date.now() / 1000) - days * 24 * 60 * 60;
 
-  const filteredRows = rows.filter(row => row.timestamp > cutoff);
+  const filteredRows = parsedRows.filter(row => row.timestamp > cutoff);
 
   const browserMap = new Map<string, number>();
   const deviceMap = new Map<string, number>();
