@@ -1,9 +1,14 @@
 import React from 'react';
 import { getDeviceStats } from '@/lib/analytics/queries';
+import type { CSVRow } from '@/types/analytics';
 
-const days = 90;
-export default async function DeviceBreakdown() {
-  const stats = getDeviceStats(days);
+type DeviceBreakdownProps = {
+  parsedData: CSVRow[];
+  days: number;
+};
+
+export default function DeviceBreakdown({ parsedData, days }: DeviceBreakdownProps) {
+  const stats = getDeviceStats(days, parsedData);
 
   return (
     <div className="bg-muted/30 border border-muted rounded-lg p-6">

@@ -1,4 +1,4 @@
-export interface PageViewData {
+export type PageViewData = {
   visitorId: string;
   sessionId: string;
   path: string;
@@ -9,9 +9,9 @@ export interface PageViewData {
   os: string;
   ipHash: string;
   timestamp: number;
-}
+};
 
-export interface CSVRow {
+export type CSVRow = {
   timestamp: number;
   visitorId: string;
   sessionId: string;
@@ -22,28 +22,28 @@ export interface CSVRow {
   deviceType: string;
   os: string;
   ipHash: string;
-}
+};
 
-export interface AnalyticsStats {
+export type AnalyticsStats = {
   totalPageviews: number;
   uniqueVisitors: number;
   uniqueSessions: number;
   pageviewsByDay: Array<{ date: string; count: number }>;
-}
+};
 
-export interface TopPage {
+export type TopPage = {
   path: string;
   views: number;
   uniqueVisitors: number;
-}
+};
 
-export interface TopReferrer {
+export type TopReferrer = {
   referrer: string;
   count: number;
-}
+};
 
-export interface DeviceStats {
+export type DeviceStats = {
   browsers: Array<{ browser: string; count: number }>;
   devices: Array<{ deviceType: string; count: number }>;
   os: Array<{ os: string; count: number }>;
-}
+};

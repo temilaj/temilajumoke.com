@@ -1,10 +1,14 @@
 import React from 'react';
 import { getAnalyticsStats } from '@/lib/analytics/queries';
+import type { CSVRow } from '@/types/analytics';
 
-const days = 90;
+type PageViewsChartProps = {
+  parsedData: CSVRow[];
+  days: number;
+};
 
-export default async function PageViewsChart() {
-  const stats = getAnalyticsStats(days);
+export default function PageViewsChart({ parsedData, days }: PageViewsChartProps) {
+  const stats = getAnalyticsStats(days, parsedData);
   const data = stats.pageviewsByDay.reverse(); // Oldest to newest
 
   const maxViews = Math.max(...data.map(d => d.count), 1);

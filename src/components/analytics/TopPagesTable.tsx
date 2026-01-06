@@ -1,9 +1,14 @@
 import React from 'react';
 import { getTopPages } from '@/lib/analytics/queries';
+import type { CSVRow } from '@/types/analytics';
 
-const days = 90;
-export default async function TopPagesTable() {
-  const pages = getTopPages(days, 10);
+type TopPagesTableProps = {
+  parsedData: CSVRow[];
+  days: number;
+};
+
+export default function TopPagesTable({ parsedData, days }: TopPagesTableProps) {
+  const pages = getTopPages(days, 10, parsedData);
 
   return (
     <div className="bg-muted/30 border border-muted rounded-lg p-6">

@@ -1,15 +1,22 @@
 import React from 'react';
-import { getAnalyticsStats } from '@/lib/analytics/queries';
 
-const days = 90;
-export default async function DashboardStats() {
-  const stats = getAnalyticsStats(days);
+import { getAnalyticsStats } from '@/lib/analytics/queries';
+import type { CSVRow } from '@/types/analytics';
+
+type DashboardStatsProps = {
+  parsedData: CSVRow[];
+  days: number;
+};
+
+export default function DashboardStats({ parsedData, days }: DashboardStatsProps) {
+  const stats = getAnalyticsStats(days, parsedData);
+  const subtitle = days === Infinity ? 'All time' : `Last ${days} days`;
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <StatCard title="Total Pageviews" value={stats.totalPageviews.toLocaleString()} subtitle={`Last ${days} days`} />
-      <StatCard title="Unique Visitors" value={stats.uniqueVisitors.toLocaleString()} subtitle={`Last ${days} days`} />
-      <StatCard title="Unique Sessions" value={stats.uniqueSessions.toLocaleString()} subtitle={`Last ${days} days`} />
+      <StatCard title="Total Pageviews" value={stats.totalPageviews.toLocaleString()} subtitle={subtitle} />
+      <StatCard title="Unique Visitors" value={stats.uniqueVisitors.toLocaleString()} subtitle={subtitle} />
+      <StatCard title="Unique Sessions" value={stats.uniqueSessions.toLocaleString()} subtitle={subtitle} />
     </div>
   );
 }

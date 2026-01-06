@@ -28,7 +28,7 @@ export default function AnalyticsLoginPage() {
       } else {
         setError('Invalid Credentials');
       }
-    } catch (err) {
+    } catch {
       setError('Login failed. Please try again.');
     } finally {
       setIsLoading(false);

@@ -1,10 +1,14 @@
 import React from 'react';
 import { getTopReferrers } from '@/lib/analytics/queries';
+import type { CSVRow } from '@/types/analytics';
 
-const days = 90;
+type ReferrersTableProps = {
+  parsedData: CSVRow[];
+  days: number;
+};
 
-export default async function ReferrersTable() {
-  const referrers = getTopReferrers(days, 10);
+export default function ReferrersTable({ parsedData, days }: ReferrersTableProps) {
+  const referrers = getTopReferrers(days, 10, parsedData);
 
   return (
     <div className="bg-muted/30 border border-muted rounded-lg p-6">
