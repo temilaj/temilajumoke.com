@@ -88,6 +88,21 @@ export function getAnalyticsStats(days: number = 30, rows?: CSVRow[]): Analytics
   const uniqueSessionIds = new Set(filteredRows.map(row => row.sessionId));
   const uniqueSessions = uniqueSessionIds.size;
 
+  // Count returning visitors (visitors with more than one session)
+  const visitorSessionMap = new Map<string, Set<string>>();
+  for (const row of filteredRows) {
+    if (!visitorSessionMap.has(row.visitorId)) {
+      visitorSessionMap.set(row.visitorId, new Set());
+    }
+    visitorSessionMap.get(row.visitorId)!.add(row.sessionId);
+  }
+  let returningVisitors = 0;
+  for (const sessions of visitorSessionMap.values()) {
+    if (sessions.size > 1) {
+      returningVisitors++;
+    }
+  }
+
   const dayMap = new Map<string, number>();
   for (const row of filteredRows) {
     const date = new Date(row.timestamp * 1000).toISOString().split('T')[0];
@@ -103,6 +118,7 @@ export function getAnalyticsStats(days: number = 30, rows?: CSVRow[]): Analytics
     totalPageviews,
     uniqueVisitors,
     uniqueSessions,
+    returningVisitors,
     pageviewsByDay,
   };
 }

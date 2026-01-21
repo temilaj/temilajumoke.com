@@ -13,10 +13,11 @@ export default function DashboardStats({ parsedData, days }: DashboardStatsProps
   const subtitle = days === Infinity ? 'All time' : `Last ${days} days`;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       <StatCard title="Total Pageviews" value={stats.totalPageviews.toLocaleString()} subtitle={subtitle} />
       <StatCard title="Unique Visitors" value={stats.uniqueVisitors.toLocaleString()} subtitle={subtitle} />
       <StatCard title="Unique Sessions" value={stats.uniqueSessions.toLocaleString()} subtitle={subtitle} />
+      <StatCard title="Returning Visitors" value={stats.returningVisitors.toLocaleString()} subtitle={subtitle} />
     </div>
   );
 }

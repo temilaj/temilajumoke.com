@@ -28,6 +28,7 @@ export type AnalyticsStats = {
   totalPageviews: number;
   uniqueVisitors: number;
   uniqueSessions: number;
+  returningVisitors: number;
   pageviewsByDay: Array<{ date: string; count: number }>;
 };
 
