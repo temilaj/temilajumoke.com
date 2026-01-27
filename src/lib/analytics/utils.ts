@@ -48,3 +48,39 @@ export function escapeCSV(value: string): string {
 
   return value;
 }
+
+export type GeoLocation = {
+  country: string;
+  city: string;
+};
+
+export async function getGeoLocation(ip: string): Promise<GeoLocation> {
+  try {
+    // Skip geolocation for local/unknown IPs
+    if (ip === 'unknown' || ip === '127.0.0.1' || ip.startsWith('192.168.') || ip.startsWith('10.')) {
+      return { country: 'Unknown', city: 'Unknown' };
+    }
+
+    const response = await fetch(`http://ip-api.com/json/${ip}?fields=status,country,city`, {
+      signal: AbortSignal.timeout(2000), // 2 second timeout
+    });
+
+    if (!response.ok) {
+      return { country: 'Unknown', city: 'Unknown' };
+    }
+
+    const data = await response.json();
+
+    if (data.status === 'success') {
+      return {
+        country: data.country || 'Unknown',
+        city: data.city || 'Unknown',
+      };
+    }
+
+    return { country: 'Unknown', city: 'Unknown' };
+  } catch {
+    // Fail silently
+    return { country: 'Unknown', city: 'Unknown' };
+  }
+}

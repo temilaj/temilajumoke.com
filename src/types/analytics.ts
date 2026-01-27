@@ -8,6 +8,8 @@ export type PageViewData = {
   deviceType: string;
   os: string;
   ipHash: string;
+  country: string;
+  city: string;
   timestamp: number;
 };
 
@@ -22,6 +24,8 @@ export type CSVRow = {
   deviceType: string;
   os: string;
   ipHash: string;
+  country: string;
+  city: string;
 };
 
 export type AnalyticsStats = {
@@ -47,4 +51,9 @@ export type DeviceStats = {
   browsers: Array<{ browser: string; count: number }>;
   devices: Array<{ deviceType: string; count: number }>;
   os: Array<{ os: string; count: number }>;
+};
+
+export type LocationStats = {
+  countries: Array<{ country: string; count: number }>;
+  cities: Array<{ city: string; count: number }>;
 };

@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { getLogFilePath } from './storage';
-import type { AnalyticsStats, TopPage, TopReferrer, DeviceStats, CSVRow } from '@/types/analytics';
+import type { AnalyticsStats, TopPage, TopReferrer, DeviceStats, LocationStats, CSVRow } from '@/types/analytics';
 
 function parseCSVLine(line: string): CSVRow | null {
   try {
@@ -27,7 +27,8 @@ function parseCSVLine(line: string): CSVRow | null {
     }
     values.push(current);
 
-    if (values.length !== 10) return null;
+    // Support both old format (10 columns) and new format (12 columns)
+    if (values.length !== 10 && values.length !== 12) return null;
 
     return {
       timestamp: parseInt(values[0], 10),
@@ -40,6 +41,8 @@ function parseCSVLine(line: string): CSVRow | null {
       deviceType: values[7],
       os: values[8],
       ipHash: values[9],
+      country: values[10] || 'Unknown',
+      city: values[11] || 'Unknown',
     };
   } catch {
     return null;
@@ -193,6 +196,33 @@ export function getDeviceStats(days: number = 30, rows?: CSVRow[]): DeviceStats 
       .sort((a, b) => b.count - a.count),
     os: Array.from(osMap.entries())
       .map(([os, count]) => ({ os, count }))
+      .sort((a, b) => b.count - a.count),
+  };
+}
+
+export function getLocationStats(days: number = 30, rows?: CSVRow[]): LocationStats {
+  const parsedRows = rows ?? parseCSVLog();
+  const cutoff = Math.floor(Date.now() / 1000) - days * 24 * 60 * 60;
+
+  const filteredRows = parsedRows.filter(row => row.timestamp > cutoff);
+
+  const countryMap = new Map<string, number>();
+  const cityMap = new Map<string, number>();
+
+  for (const row of filteredRows) {
+    const country = row.country || 'Unknown';
+    const city = row.city || 'Unknown';
+
+    countryMap.set(country, (countryMap.get(country) || 0) + 1);
+    cityMap.set(city, (cityMap.get(city) || 0) + 1);
+  }
+
+  return {
+    countries: Array.from(countryMap.entries())
+      .map(([country, count]) => ({ country, count }))
+      .sort((a, b) => b.count - a.count),
+    cities: Array.from(cityMap.entries())
+      .map(([city, count]) => ({ city, count }))
       .sort((a, b) => b.count - a.count),
   };
 }

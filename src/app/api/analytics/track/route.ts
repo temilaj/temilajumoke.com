@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import { trackPageView } from '@/lib/analytics/tracker';
-import { hashIp, parseUserAgent, getClientIp } from '@/lib/analytics/utils';
+import { hashIp, parseUserAgent, getClientIp, getGeoLocation } from '@/lib/analytics/utils';
 
 const rateLimitMap = new Map<string, number[]>();
 const RATE_LIMIT = 100; // Max 100 requests per minute per IP
@@ -61,6 +61,9 @@ export async function POST(request: NextRequest) {
     const userAgent = request.headers.get('user-agent') || 'Unknown';
     const { browser, os, deviceType } = parseUserAgent(userAgent);
 
+    // Get geolocation from IP
+    const { country, city } = await getGeoLocation(clientIp);
+
     // Track the pageview
     trackPageView({
       visitorId,
@@ -72,6 +75,8 @@ export async function POST(request: NextRequest) {
       deviceType,
       os,
       ipHash,
+      country,
+      city,
       timestamp: Math.floor(Date.now() / 1000),
     });
 

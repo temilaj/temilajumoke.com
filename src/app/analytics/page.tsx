@@ -7,6 +7,7 @@ import type { CSVRow } from '@/types/analytics';
 import DashboardStats from '@/components/analytics/DashboardStats';
 import PageViewsChart from '@/components/analytics/PageViewsChart';
 import DeviceBreakdown from '@/components/analytics/DeviceBreakdown';
+import LocationBreakdown from '@/components/analytics/LocationBreakdown';
 import TopPagesTable from '@/components/analytics/TopPagesTable';
 import ReferrersTable from '@/components/analytics/ReferrersTable';
 import LogoutButton from '@/components/analytics/LogoutButton';
@@ -62,6 +63,12 @@ export default async function AnalyticsPage({ searchParams }: AnalyticsPageProps
 
           <Suspense fallback={<div>Loading devices...</div>}>
             <DeviceBreakdown parsedData={filteredData} days={days} />
+          </Suspense>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <Suspense fallback={<div>Loading locations...</div>}>
+            <LocationBreakdown parsedData={filteredData} days={days} />
           </Suspense>
         </div>
 
