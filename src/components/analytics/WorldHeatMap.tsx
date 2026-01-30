@@ -216,12 +216,12 @@ function WorldHeatMap({ parsedData, days }: WorldHeatMapProps) {
   // Get top countries for legend
   const topCountries = Array.from(countryCountMap.entries())
     .sort((a, b) => b[1] - a[1])
-    .slice(0, 5);
+    .slice(0, 10);
 
   // Get top cities
   const topCities = Array.from(cityCountMap.entries())
     .sort((a, b) => b[1] - a[1])
-    .slice(0, 5);
+    .slice(0, 10);
 
   // Use map totals instead of filtering again
   const totalVisits = Array.from(countryCountMap.values()).reduce((a, b) => a + b, 0);
