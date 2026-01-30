@@ -25,7 +25,14 @@ export default function Experience(props: { sectionsRef: React.RefObject<(HTMLEl
         <div className="space-y-12" role="list" aria-label="Work experience timeline">
           {[
             {
-              year: '2022-Present',
+              year: '2026-Present',
+              role: 'Staff Software Engineer',
+              company: 'Nvidia',
+              description: '',
+              tech: [],
+            },
+            {
+              year: '2022-2025',
               role: 'Software Engineer',
               company: 'Amazon AI',
               description: '',
@@ -78,17 +85,17 @@ export default function Experience(props: { sectionsRef: React.RefObject<(HTMLEl
                 </div>
               </div>
 
-              <div className="lg:col-span-6 space-y-3">
+              <div className="lg:col-span-10 space-y-3">
                 <div>
                   <h3 className="text-xl font-medium">{job.role}</h3>
                   <div className="text-muted-foreground" aria-label={`Company: ${job.company}`}>
                     {job.company}
                   </div>
                 </div>
-                <p className="text-muted-foreground leading-relaxed max-w-lg">{job.description}</p>
+                <p className="text-muted-foreground leading-relaxed max-w-xlg">{job.description}</p>
               </div>
 
-              <div
+              {/* <div
                 className="lg:col-span-4 flex flex-wrap gap-2 lg:justify-end"
                 role="list"
                 aria-label={`Technologies used at ${job.company}`}
@@ -102,7 +109,7 @@ export default function Experience(props: { sectionsRef: React.RefObject<(HTMLEl
                     {tech}
                   </span>
                 ))}
-              </div>
+              </div> */}
             </article>
           ))}
         </div>
