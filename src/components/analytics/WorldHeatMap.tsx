@@ -177,10 +177,15 @@ function WorldHeatMap({ parsedData, days }: WorldHeatMapProps) {
   const filteredRows = parsedData.filter(row => row.timestamp > cutoff);
 
   const countryCountMap = new Map<string, number>();
+  const cityCountMap = new Map<string, number>();
   for (const row of filteredRows) {
     const country = row.country || 'Unknown';
     if (country !== 'Unknown') {
       countryCountMap.set(country, (countryCountMap.get(country) || 0) + 1);
+    }
+    const city = row.city || 'Unknown';
+    if (city !== 'Unknown') {
+      cityCountMap.set(city, (cityCountMap.get(city) || 0) + 1);
     }
   }
 
@@ -213,7 +218,14 @@ function WorldHeatMap({ parsedData, days }: WorldHeatMapProps) {
     .sort((a, b) => b[1] - a[1])
     .slice(0, 5);
 
-  const totalVisits = filteredRows.filter(r => r.country && r.country !== 'Unknown').length;
+  // Get top cities
+  const topCities = Array.from(cityCountMap.entries())
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5);
+
+  // Use map totals instead of filtering again
+  const totalVisits = Array.from(countryCountMap.values()).reduce((a, b) => a + b, 0);
+  const totalCityVisits = Array.from(cityCountMap.values()).reduce((a, b) => a + b, 0);
 
   const getCountryCount = (id: string) => idCountMap.get(id) || 0;
 
@@ -273,29 +285,57 @@ function WorldHeatMap({ parsedData, days }: WorldHeatMapProps) {
         </span>
       </div>
 
-      {/* Top Countries */}
-      {topCountries.length > 0 && (
-        <div className="mt-4 pt-4 border-t border-muted">
-          <h4 className="text-sm font-medium text-muted-foreground mb-2">Top Countries</h4>
-          <div className="space-y-1">
-            {topCountries.map(([country, count], idx) => {
-              const percentage = totalVisits > 0 ? (count / totalVisits) * 100 : 0;
-              return (
-                <div key={idx} className="flex items-center gap-2">
-                  <span className="text-xs w-28 truncate">{country}</span>
-                  <div className="flex-1 bg-muted rounded-full h-3">
-                    <div
-                      className="bg-blue-500 h-full rounded-full transition-all"
-                      style={{ width: `${percentage}%` }}
-                    />
-                  </div>
-                  <span className="text-xs w-16 text-right">
-                    {count} ({percentage.toFixed(0)}%)
-                  </span>
-                </div>
-              );
-            })}
-          </div>
+      {(topCountries.length > 0 || topCities.length > 0) && (
+        <div className="mt-4 pt-4 border-t border-muted grid grid-cols-1 md:grid-cols-2 gap-6">
+          {topCountries.length > 0 && (
+            <div>
+              <h4 className="text-sm font-medium text-muted-foreground mb-2">Top Countries</h4>
+              <div className="space-y-1">
+                {topCountries.map(([country, count], idx) => {
+                  const percentage = totalVisits > 0 ? (count / totalVisits) * 100 : 0;
+                  return (
+                    <div key={idx} className="flex items-center gap-2">
+                      <span className="text-xs w-28 truncate">{country}</span>
+                      <div className="flex-1 bg-muted rounded-full h-3">
+                        <div
+                          className="bg-blue-500 h-full rounded-full transition-all"
+                          style={{ width: `${percentage}%` }}
+                        />
+                      </div>
+                      <span className="text-xs w-16 text-right">
+                        {count} ({percentage.toFixed(0)}%)
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {topCities.length > 0 && (
+            <div>
+              <h4 className="text-sm font-medium text-muted-foreground mb-2">Top Cities</h4>
+              <div className="space-y-1">
+                {topCities.map(([city, count], idx) => {
+                  const percentage = totalCityVisits > 0 ? (count / totalCityVisits) * 100 : 0;
+                  return (
+                    <div key={idx} className="flex items-center gap-2">
+                      <span className="text-xs w-28 truncate">{city}</span>
+                      <div className="flex-1 bg-muted rounded-full h-3">
+                        <div
+                          className="bg-indigo-500 h-full rounded-full transition-all"
+                          style={{ width: `${percentage}%` }}
+                        />
+                      </div>
+                      <span className="text-xs w-16 text-right">
+                        {count} ({percentage.toFixed(0)}%)
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
