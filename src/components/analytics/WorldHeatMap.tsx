@@ -141,10 +141,20 @@ function geometryToPath(geometry: Geometry, width: number, height: number): stri
   return '';
 }
 
+const topOptions = [
+  { value: 5, label: 'Top 5' },
+  { value: 10, label: 'Top 10' },
+  { value: 15, label: 'Top 15' },
+  { value: 20, label: 'Top 20' },
+  { value: 25, label: 'Top 25' },
+  { value: Infinity, label: 'All' },
+];
+
 function WorldHeatMap({ parsedData, days }: WorldHeatMapProps) {
   const [countries, setCountries] = useState<CountryFeature[]>([]);
   const [hoveredCountry, setHoveredCountry] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [topCount, setTopCount] = useState(10);
 
   const WIDTH = 800;
   const HEIGHT = 450;
@@ -214,14 +224,12 @@ function WorldHeatMap({ parsedData, days }: WorldHeatMapProps) {
   };
 
   // Get top countries for legend
-  const topCountries = Array.from(countryCountMap.entries())
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 10);
+  const allSortedCountries = Array.from(countryCountMap.entries()).sort((a, b) => b[1] - a[1]);
+  const topCountries = topCount === Infinity ? allSortedCountries : allSortedCountries.slice(0, topCount);
 
   // Get top cities
-  const topCities = Array.from(cityCountMap.entries())
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 10);
+  const allSortedCities = Array.from(cityCountMap.entries()).sort((a, b) => b[1] - a[1]);
+  const topCities = topCount === Infinity ? allSortedCities : allSortedCities.slice(0, topCount);
 
   // Use map totals instead of filtering again
   const totalVisits = Array.from(countryCountMap.values()).reduce((a, b) => a + b, 0);
@@ -286,7 +294,25 @@ function WorldHeatMap({ parsedData, days }: WorldHeatMapProps) {
       </div>
 
       {(topCountries.length > 0 || topCities.length > 0) && (
-        <div className="mt-4 pt-4 border-t border-muted grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="mt-4 pt-4 border-t border-muted">
+          <div className="flex items-center justify-end gap-2 mb-4">
+            <label htmlFor="top-count" className="text-sm text-muted-foreground">
+              Show:
+            </label>
+            <select
+              id="top-count"
+              value={topCount}
+              onChange={e => setTopCount(e.target.value === 'Infinity' ? Infinity : Number(e.target.value))}
+              className="bg-muted/30 border border-muted rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+            >
+              {topOptions.map(option => (
+                <option key={option.label} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {topCountries.length > 0 && (
             <div>
               <h4 className="text-sm font-medium text-muted-foreground mb-2">Top Countries</h4>
@@ -336,6 +362,7 @@ function WorldHeatMap({ parsedData, days }: WorldHeatMapProps) {
               </div>
             </div>
           )}
+          </div>
         </div>
       )}
     </div>
