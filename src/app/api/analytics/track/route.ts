@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
     const { browser, os, deviceType } = parseUserAgent(userAgent);
 
     // Get geolocation from IP
-    const { country, city } = await getGeoLocation(clientIp);
+    const { country, city, state } = await getGeoLocation(clientIp);
 
     // Track the pageview
     trackPageView({
@@ -77,6 +77,7 @@ export async function POST(request: NextRequest) {
       ipHash,
       country,
       city,
+      state,
       timestamp: Math.floor(Date.now() / 1000),
     });
 

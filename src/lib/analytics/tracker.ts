@@ -15,7 +15,8 @@ export function trackPageView(data: PageViewData): void {
       data.os,
       data.ipHash,
       data.country,
-      data.city
+      data.city,
+      data.state
     );
   } catch (error) {
     console.error('[Analytics] Error tracking pageview:', error);

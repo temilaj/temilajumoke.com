@@ -27,8 +27,8 @@ function parseCSVLine(line: string): CSVRow | null {
     }
     values.push(current);
 
-    // Support both old format (10 columns) and new format (12 columns)
-    if (values.length !== 10 && values.length !== 12) return null;
+    // Support old format (10 columns), previous format (12 columns), and new format (13 columns)
+    if (values.length !== 10 && values.length !== 12 && values.length !== 13) return null;
 
     return {
       timestamp: parseInt(values[0], 10),
@@ -43,6 +43,7 @@ function parseCSVLine(line: string): CSVRow | null {
       ipHash: values[9],
       country: values[10] || 'Unknown',
       city: values[11] || 'Unknown',
+      state: values[12] || 'Unknown',
     };
   } catch {
     return null;
@@ -212,9 +213,11 @@ export function getLocationStats(days: number = 30, rows?: CSVRow[]): LocationSt
   for (const row of filteredRows) {
     const country = row.country || 'Unknown';
     const city = row.city || 'Unknown';
+    const state = row.state && row.state !== 'Unknown' ? row.state : null;
+    const cityLabel = state ? `${city}, ${state}` : city;
 
     countryMap.set(country, (countryMap.get(country) || 0) + 1);
-    cityMap.set(city, (cityMap.get(city) || 0) + 1);
+    cityMap.set(cityLabel, (cityMap.get(cityLabel) || 0) + 1);
   }
 
   return {

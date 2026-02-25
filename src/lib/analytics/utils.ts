@@ -52,21 +52,22 @@ export function escapeCSV(value: string): string {
 export type GeoLocation = {
   country: string;
   city: string;
+  state: string;
 };
 
 export async function getGeoLocation(ip: string): Promise<GeoLocation> {
   try {
     // Skip geolocation for local/unknown IPs
     if (ip === 'unknown' || ip === '127.0.0.1' || ip.startsWith('192.168.') || ip.startsWith('10.')) {
-      return { country: 'Unknown', city: 'Unknown' };
+      return { country: 'Unknown', city: 'Unknown', state: 'Unknown' };
     }
 
-    const response = await fetch(`http://ip-api.com/json/${ip}?fields=status,country,city`, {
+    const response = await fetch(`http://ip-api.com/json/${ip}?fields=status,country,regionName,city`, {
       signal: AbortSignal.timeout(2000), // 2 second timeout
     });
 
     if (!response.ok) {
-      return { country: 'Unknown', city: 'Unknown' };
+      return { country: 'Unknown', city: 'Unknown', state: 'Unknown' };
     }
 
     const data = await response.json();
@@ -75,12 +76,13 @@ export async function getGeoLocation(ip: string): Promise<GeoLocation> {
       return {
         country: data.country || 'Unknown',
         city: data.city || 'Unknown',
+        state: data.regionName || 'Unknown',
       };
     }
 
-    return { country: 'Unknown', city: 'Unknown' };
+    return { country: 'Unknown', city: 'Unknown', state: 'Unknown' };
   } catch {
     // Fail silently
-    return { country: 'Unknown', city: 'Unknown' };
+    return { country: 'Unknown', city: 'Unknown', state: 'Unknown' };
   }
 }

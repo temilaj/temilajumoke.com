@@ -5,7 +5,7 @@ import { escapeCSV } from '@/lib/analytics/utils';
 
 const LOG_FILE_NAME = process.env.ANALYTICS_FILE_NAME!;
 const LOG_FILE_PATH = path.join(process.cwd(), LOG_FILE_NAME);
-const CSV_HEADER = 'timestamp,visitor_id,session_id,path,referrer,user_agent,browser,device_type,os,ip_hash,country,city\n';
+const CSV_HEADER = 'timestamp,visitor_id,session_id,path,referrer,user_agent,browser,device_type,os,ip_hash,country,city,state\n';
 
 export function initializeLogFile(): void {
   try {
@@ -30,7 +30,8 @@ export function appendToLog(
   os: string,
   ipHash: string,
   country: string,
-  city: string
+  city: string,
+  state: string
 ): void {
   try {
     if (!fs.existsSync(LOG_FILE_PATH)) {
@@ -52,6 +53,7 @@ export function appendToLog(
         ipHash,
         escapeCSV(country || 'Unknown'),
         escapeCSV(city || 'Unknown'),
+        escapeCSV(state || 'Unknown'),
       ].join(',') + '\n';
 
     // Append to file synchronously

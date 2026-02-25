@@ -10,6 +10,7 @@ export type PageViewData = {
   ipHash: string;
   country: string;
   city: string;
+  state: string;
   timestamp: number;
 };
 
@@ -26,6 +27,7 @@ export type CSVRow = {
   ipHash: string;
   country: string;
   city: string;
+  state: string;
 };
 
 export type AnalyticsStats = {
