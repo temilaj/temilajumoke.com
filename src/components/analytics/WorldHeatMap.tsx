@@ -195,7 +195,9 @@ function WorldHeatMap({ parsedData, days }: WorldHeatMapProps) {
     }
     const city = row.city || 'Unknown';
     if (city !== 'Unknown') {
-      cityCountMap.set(city, (cityCountMap.get(city) || 0) + 1);
+      const state = row.state && row.state !== 'Unknown' ? row.state : null;
+      const cityLabel = state ? `${city}, ${state}` : city;
+      cityCountMap.set(cityLabel, (cityCountMap.get(cityLabel) || 0) + 1);
     }
   }
 
