@@ -348,7 +348,7 @@ function WorldHeatMap({ parsedData, days }: WorldHeatMapProps) {
                   const percentage = totalCityVisits > 0 ? (count / totalCityVisits) * 100 : 0;
                   return (
                     <div key={idx} className="flex items-center gap-2">
-                      <span className="text-xs w-28 truncate">{city}</span>
+                      <span className="text-xs w-40 truncate">{city}</span>
                       <div className="flex-1 bg-muted rounded-full h-3">
                         <div
                           className="bg-indigo-500 h-full rounded-full transition-all"

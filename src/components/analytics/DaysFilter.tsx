@@ -3,6 +3,8 @@ import React from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 const dayOptions = [
+  { value: '1', label: 'Last 24 hours' },
+  { value: '2', label: 'Last 48 hours' },
   { value: '7', label: 'Last 7 days' },
   { value: '14', label: 'Last 14 days' },
   { value: '30', label: 'Last 30 days' },
