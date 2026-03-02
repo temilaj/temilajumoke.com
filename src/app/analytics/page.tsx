@@ -15,7 +15,7 @@ import DaysFilter from '@/components/analytics/DaysFilter';
 
 export const metadata = {
   title: 'Analytics Dashboard | Temi Lajumoke',
-  description: 'Aanalytics dashboard',
+  description: 'Analytics dashboard',
   robots: 'noindex, nofollow',
 };
 

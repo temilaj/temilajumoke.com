@@ -1,5 +1,11 @@
 {
- "name": "App",
+ "name": "Temi Lajumoke",
+ "short_name": "Temi",
+ "description": "Staff Software & Machine Learning Engineer at NVIDIA",
+ "start_url": "/",
+ "display": "standalone",
+ "background_color": "#ffffff",
+ "theme_color": "#000000",
  "icons": [
   {
    "src": "\/android-icon-36x36.png",

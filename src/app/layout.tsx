@@ -22,9 +22,11 @@ const author: Author = {
   url: 'https://temilajumoke.com',
 };
 
+const seoDescription = "Staff Software Engineer at NVIDIA. About a decade of experience building scalable, high-performance systems — from AI-powered tools and cloud infrastructure to deep learning models.";
+
 const openGraph: OpenGraph = {
-  title: 'Temi Lajumoke',
-  description: "Hi, I'm Temi Lajumoke.",
+  title: 'Temi Lajumoke — Staff Software & Machine Learning Engineer',
+  description: seoDescription,
   images: ['https://temilajumoke.com/temilajumoke-logo.png'],
   type: 'website',
   determiner: 'the',
@@ -38,8 +40,8 @@ const twitter: Twitter = {
   card: 'summary_large_image',
   site: '@temilaj',
   creator: '@temilaj',
-  title: 'Temi Lajumoke',
-  description: "Hi, I'm Temi Lajumoke.",
+  title: 'Temi Lajumoke — Staff Software & Machine Learning Engineer',
+  description: seoDescription,
   images: [
     {
       url: 'https://temilajumoke.com/temilajumoke-logo.png',
@@ -51,17 +53,36 @@ const twitter: Twitter = {
 };
 
 export const metadata: Metadata = {
-  title: 'Home | Temi Lajumoke - Software & Machine Learning Engineer',
-  description: "I'm a Software & Machine Learning Engineer with over 8 years of experience building scalable, high-performance systems across the full stack.",
-  keywords: 'Temilaj, Temi Lajumoke, Software Engineer, Machine Learning Engineer, Software Developer, Full Stack Developer, AWS, React, Python, Java, TypeScript',
+  metadataBase: new URL('https://temilajumoke.com'),
+  title: {
+    default: 'Temi Lajumoke — Staff Software & Machine Learning Engineer',
+    template: '%s | Temi Lajumoke',
+  },
+  description: seoDescription,
+  keywords: 'Temi Lajumoke, Staff Software Engineer, Machine Learning Engineer, NVIDIA, AI Tools, Agentic AI, LLM, Large Language Models, Cloud Infrastructure, Deep Learning, Python, Go, TypeScript, Distributed Systems, Full Stack Engineer',
   authors: [author],
-  robots: 'index, follow',
+  creator: 'Temi Lajumoke',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
   openGraph,
   twitter,
-  viewport: 'width=device-width, initial-scale=1',
+  alternates: {
+    canonical: 'https://temilajumoke.com',
+  },
+};
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#000000' }
+    { media: '(prefers-color-scheme: dark)', color: '#000000' },
   ],
 };
 

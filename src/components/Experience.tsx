@@ -17,8 +17,11 @@ export default function Experience(props: { sectionsRef: React.RefObject<(HTMLEl
           <h2 id="experience-heading" className="text-4xl font-light">
             Experience
           </h2>
-          <div className="text-sm text-muted-foreground font-mono" aria-label="Experience timeline from 2016 to 2025">
-            2016 — 2025
+          <div
+            className="text-sm text-muted-foreground font-mono"
+            aria-label="Experience timeline from 2015 to present"
+          >
+            2015 — Present
           </div>
         </div>
 
