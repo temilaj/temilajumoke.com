@@ -22,10 +22,11 @@ const author: Author = {
   url: 'https://temilajumoke.com',
 };
 
-const seoDescription = "Staff Software Engineer at NVIDIA. About a decade of experience building scalable, high-performance systems — from AI-powered tools and cloud infrastructure to deep learning models.";
+const seoDescription =
+  'Staff Software Engineer at NVIDIA. About a decade of experience building scalable, high-performance systems — from AI-powered tools and cloud infrastructure to deep learning models.';
 
 const openGraph: OpenGraph = {
-  title: 'Temi Lajumoke — Staff Software & Machine Learning Engineer',
+  title: 'Home | Temi Lajumoke — Staff Software & Machine Learning Engineer',
   description: seoDescription,
   images: ['https://temilajumoke.com/temilajumoke-logo.png'],
   type: 'website',
@@ -40,7 +41,7 @@ const twitter: Twitter = {
   card: 'summary_large_image',
   site: '@temilaj',
   creator: '@temilaj',
-  title: 'Temi Lajumoke — Staff Software & Machine Learning Engineer',
+  title: 'Home | Temi Lajumoke — Staff Software & Machine Learning Engineer',
   description: seoDescription,
   images: [
     {
@@ -55,11 +56,12 @@ const twitter: Twitter = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://temilajumoke.com'),
   title: {
-    default: 'Temi Lajumoke — Staff Software & Machine Learning Engineer',
+    default: 'Home | Temi Lajumoke — Staff Software & Machine Learning Engineer',
     template: '%s | Temi Lajumoke',
   },
   description: seoDescription,
-  keywords: 'Temi Lajumoke, Staff Software Engineer, Machine Learning Engineer, NVIDIA, AI Tools, Agentic AI, LLM, Large Language Models, Cloud Infrastructure, Deep Learning, Python, Go, TypeScript, Distributed Systems, Full Stack Engineer',
+  keywords:
+    'Temi Lajumoke, Staff Software Engineer, Machine Learning Engineer, NVIDIA, AI Tools, Agentic AI, LLM, Large Language Models, Cloud Infrastructure, Deep Learning, Python, Go, TypeScript, Distributed Systems, Full Stack Engineer',
   authors: [author],
   creator: 'Temi Lajumoke',
   robots: {
