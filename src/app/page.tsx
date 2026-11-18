@@ -22,25 +22,43 @@ export default function Home() {
   const { theme } = useTheme();
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    // Reveal a section as soon as any part of it scrolls into view. A ratio-based
+    // threshold can never be met by sections taller than the viewport (phones).
+    const revealObserver = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('animate-fade-in-up');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0, rootMargin: '0px 0px -10% 0px' }
+    );
+
+    // The active section is whichever one crosses the vertical middle of the viewport.
+    const activeObserver = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
             setActiveSection(entry.target.id as PageSection);
           }
         });
       },
-      { threshold: 0.4, rootMargin: '0px 0px -20% 0px' }
+      { threshold: 0, rootMargin: '-50% 0px -50% 0px' }
     );
 
     sectionsRef.current.forEach(pageSection => {
       if (pageSection) {
-        observer.observe(pageSection);
+        revealObserver.observe(pageSection);
+        activeObserver.observe(pageSection);
       }
     });
 
-    return () => observer.disconnect();
+    return () => {
+      revealObserver.disconnect();
+      activeObserver.disconnect();
+    };
   }, []);
 
   return (

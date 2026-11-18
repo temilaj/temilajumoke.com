@@ -1,64 +1,62 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import { trackPageView } from '@/lib/analytics/tracker';
-import { hashIp, parseUserAgent, getClientIp, getGeoLocation } from '@/lib/analytics/utils';
+import { createRateLimiter } from '@/lib/analytics/rateLimit';
+import { hashIp, parseUserAgent, getClientIp, getGeoLocation, readJsonBody } from '@/lib/analytics/utils';
 
-const rateLimitMap = new Map<string, number[]>();
-const RATE_LIMIT = 100; // Max 100 requests per minute per IP
-const RATE_WINDOW = 60 * 1000; // 1 minute
+const MAX_BODY_BYTES = 4096;
+const MAX_PATH_LENGTH = 500;
+const MAX_REFERRER_LENGTH = 1000;
+const MAX_USER_AGENT_LENGTH = 512;
 
-function checkRateLimit(ipHash: string): boolean {
-  const now = Date.now();
-  const requests = rateLimitMap.get(ipHash) || [];
+// Max 100 requests per minute per IP
+const isTrackAllowed = createRateLimiter(100, 60 * 1000);
 
-  // Remove old requests outside window
-  const recentRequests = requests.filter(time => now - time < RATE_WINDOW);
-
-  if (recentRequests.length >= RATE_LIMIT) {
-    return false;
-  }
-
-  recentRequests.push(now);
-  rateLimitMap.set(ipHash, recentRequests);
-
-  // Cleanup old entries every 1000 requests
-  if (rateLimitMap.size > 1000) {
-    for (const [key, times] of rateLimitMap.entries()) {
-      if (times.every(t => now - t > RATE_WINDOW)) {
-        rateLimitMap.delete(key);
-      }
-    }
-  }
-
-  return true;
-}
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const CONTROL_CHARS = /\p{Cc}/u;
 
 export async function POST(request: NextRequest) {
   try {
     const clientIp = getClientIp(request);
     const ipHash = hashIp(clientIp);
 
-    if (!checkRateLimit(ipHash)) {
+    if (!isTrackAllowed(ipHash)) {
       return NextResponse.json({ error: 'Rate limit exceeded' }, { status: 429 });
     }
 
-    const body = await request.json();
+    const body = await readJsonBody(request, MAX_BODY_BYTES);
+    if (!body) {
+      return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
+    }
+
     const { visitorId, sessionId, path, referrer } = body;
 
     if (!visitorId || !path || !sessionId) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-    if (!uuidRegex.test(visitorId)) {
+    if (typeof visitorId !== 'string' || !UUID_REGEX.test(visitorId)) {
+      return NextResponse.json({ error: 'Invalid visitor ID' }, { status: 400 });
+    }
+
+    if (typeof sessionId !== 'string' || !UUID_REGEX.test(sessionId)) {
       return NextResponse.json({ error: 'Invalid session ID' }, { status: 400 });
     }
 
-    if (!path.startsWith('/') || path.length > 500) {
+    if (
+      typeof path !== 'string' ||
+      !path.startsWith('/') ||
+      path.length > MAX_PATH_LENGTH ||
+      CONTROL_CHARS.test(path)
+    ) {
       return NextResponse.json({ error: 'Invalid path' }, { status: 400 });
     }
 
-    const userAgent = request.headers.get('user-agent') || 'Unknown';
+    if (referrer != null && typeof referrer !== 'string') {
+      return NextResponse.json({ error: 'Invalid referrer' }, { status: 400 });
+    }
+
+    const userAgent = (request.headers.get('user-agent') || 'Unknown').slice(0, MAX_USER_AGENT_LENGTH);
     const { browser, os, deviceType } = parseUserAgent(userAgent);
 
     // Get geolocation from IP
@@ -69,7 +67,7 @@ export async function POST(request: NextRequest) {
       visitorId,
       sessionId,
       path,
-      referrer: referrer || null,
+      referrer: referrer ? referrer.slice(0, MAX_REFERRER_LENGTH) : null,
       userAgent,
       browser,
       deviceType,

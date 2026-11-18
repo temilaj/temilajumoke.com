@@ -94,10 +94,14 @@
 
   /* User motion preferences support */
   @media (prefers-reduced-motion: reduce) {
+    /* Skip the motion but still show the content: sections start at opacity 0
+       and this class is the only thing that reveals them. */
     .animate-fade-in-up {
       animation: none;
+      opacity: 1 !important;
+      transform: none !important;
     }
-    
+
     * {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;

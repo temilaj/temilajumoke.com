@@ -1,5 +1,62 @@
 import React from 'react';
 
+type Job = {
+  year: string;
+  role: string;
+  company: string;
+  description: string;
+  link?: { label: string; href: string };
+};
+
+const JOBS: Job[] = [
+  {
+    year: '2026-Present',
+    role: 'Staff Software Engineer',
+    company: 'NVIDIA',
+    description:
+      'I work on AI tools and infrastructure that use LLMs and agentic AI to automate engineering workflows. Still cooking something great here.',
+  },
+  {
+    year: '2022-2025',
+    role: 'Software Engineer',
+    company: 'Amazon AGI Lab',
+    description:
+      "Founding engineer for both the AGI Lab and Alexa on LLM (now Alexa+). I tech led the first model hosting pipeline and C2PA for Nova Reel, built much of the tool call and action execution layer (MCP before MCP), and worked on Reel's long video generation.",
+    link: {
+      label: 'Nova technical report',
+      href: 'https://www.amazon.science/publications/the-amazon-nova-family-of-models-technical-report-and-model-card',
+    },
+  },
+  {
+    year: '2021',
+    role: 'Machine Learning Engineer',
+    company: 'BU Spark',
+    description:
+      'Topic modeling and classification of historical records from scanned, multilingual archives. I used BERT and XLM-RoBERTa and improved identification of key themes by 11%.',
+  },
+  {
+    year: '2018-2020',
+    role: 'Senior Software Engineer',
+    company: 'Coursera (Senior Consultant via Andela)',
+    description:
+      "I led a distributed team of eight engineers across three countries and was tech lead for accessibility compliance. I rewrote the in-browser code editor and the evaluator that runs learners' code, cutting bundle size for some services by up to 50%, and built the partner tools for creating specializations and customizing certificates.",
+  },
+  {
+    year: '2017-2018',
+    role: 'Software Development Learning Facilitator',
+    company: 'Andela',
+    description:
+      'I facilitated coding classes for new software engineers and built the curriculum. I also mentored engineers and assessed candidates.',
+  },
+  {
+    year: '2015-2017',
+    role: 'Software Developer',
+    company: 'Woodstock',
+    description:
+      'Smart home and home automation. I programmed control systems, built the apps people used to run their homes, integrated third-party devices into one system, and built custom IoT devices.',
+  },
+];
+
 export default function Experience(props: { sectionsRef: React.RefObject<(HTMLElement | null)[]> }) {
   const { sectionsRef } = props;
 
@@ -21,62 +78,12 @@ export default function Experience(props: { sectionsRef: React.RefObject<(HTMLEl
             className="text-sm text-muted-foreground font-mono"
             aria-label="Experience timeline from 2015 to present"
           >
-            2015 — Present
+            2015 - Present
           </div>
         </div>
 
         <div className="space-y-12" role="list" aria-label="Work experience timeline">
-          {[
-            {
-              year: '2026-Present',
-              role: 'Staff Software Engineer',
-              company: 'Nvidia',
-              description: '',
-              tech: [],
-            },
-            {
-              year: '2022-2025',
-              role: 'Software Engineer',
-              company: 'Amazon AI',
-              description: '',
-              tech: [],
-            },
-            {
-              year: '2021',
-              role: 'Machine Learning Engineer',
-              company: 'BU Spark',
-              description: '',
-              tech: [],
-            },
-            {
-              year: '2018-2020',
-              role: 'Senior Software Engineer',
-              company: 'Coursera',
-              description: '',
-              tech: [],
-            },
-            {
-              year: '2018-2020',
-              role: 'Senior Software Engineer',
-              company: 'Andela',
-              description: '',
-              tech: [],
-            },
-            {
-              year: '2017-2018',
-              role: 'Software Development Learning Facilitator',
-              company: 'Andela',
-              description: '',
-              tech: [],
-            },
-            {
-              year: '2015-2017',
-              role: 'Software Developer',
-              company: 'Woodstock',
-              description: '',
-              tech: [],
-            },
-          ].map((job, index) => (
+          {JOBS.map((job, index) => (
             <article
               key={index}
               className="group grid lg:grid-cols-12 gap-8 py-8 border-b border-border/50 hover:border-border transition-colors duration-500"
@@ -95,24 +102,21 @@ export default function Experience(props: { sectionsRef: React.RefObject<(HTMLEl
                     {job.company}
                   </div>
                 </div>
-                <p className="text-muted-foreground leading-relaxed max-w-xlg">{job.description}</p>
-              </div>
-
-              {/* <div
-                className="lg:col-span-4 flex flex-wrap gap-2 lg:justify-end"
-                role="list"
-                aria-label={`Technologies used at ${job.company}`}
-              >
-                {job.tech.map(tech => (
-                  <span
-                    key={tech}
-                    className="px-2 py-1 text-xs text-muted-foreground rounded group-hover:border-muted-foreground/50 transition-colors duration-500"
-                    role="listitem"
+                {job.description && (
+                  <p className="text-muted-foreground leading-relaxed max-w-3xl">{job.description}</p>
+                )}
+                {job.link && (
+                  <a
+                    href={job.link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block text-sm text-blue-500 dark:text-blue-500 hover:underline"
+                    aria-label={`${job.link.label} (opens in new tab)`}
                   >
-                    {tech}
-                  </span>
-                ))}
-              </div> */}
+                    {job.link.label} <span aria-hidden="true">↗</span>
+                  </a>
+                )}
+              </div>
             </article>
           ))}
         </div>
