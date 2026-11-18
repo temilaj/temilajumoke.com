@@ -26,7 +26,7 @@ export default function AnalyticsLoginPage() {
         router.push('/analytics');
         router.refresh();
       } else {
-        setError('Invalid Credentials');
+        setError(response.status === 429 ? 'Too many attempts. Please try again later.' : 'Invalid Credentials');
       }
     } catch {
       setError('Login failed. Please try again.');
@@ -40,6 +40,7 @@ export default function AnalyticsLoginPage() {
       <div className="w-full max-w-md">
         <div className="bg-muted/30 border border-muted rounded-lg p-8">
           <h1 className="text-2xl font-playfair font-bold mb-2">Analytics Login</h1>
+          <p className="text-muted-foreground mb-6">Enter your API key to access the dashboard</p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
