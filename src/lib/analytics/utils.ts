@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import net from 'net';
 import { UAParser } from 'ua-parser-js';
 
 export function hashIp(ip: string): string {
@@ -40,13 +41,59 @@ export function generateVistorId(): string {
 export function escapeCSV(value: string): string {
   if (!value) return '';
 
-  if (value.includes(',') || value.includes('"') || value.includes('\n') || value.includes('\r')) {
+  // The log is read back line by line, so a raw newline (even inside quotes)
+  // would let a value forge extra rows. Collapse control characters to a space.
+  const clean = String(value).replace(/\p{Cc}+/gu, ' ');
+
+  if (clean.includes(',') || clean.includes('"')) {
     // Escape double quotes by doubling them
-    const escaped = value.replace(/"/g, '""');
+    const escaped = clean.replace(/"/g, '""');
     return `"${escaped}"`;
   }
 
-  return value;
+  return clean;
+}
+
+/**
+ * Reads a JSON object body, refusing anything larger than `maxBytes` (checked
+ * while streaming, so a missing or false Content-Length cannot bypass it).
+ * Returns null for oversized, malformed, or non-object bodies.
+ */
+export async function readJsonBody(request: Request, maxBytes: number): Promise<Record<string, unknown> | null> {
+  const declaredLength = Number(request.headers.get('content-length'));
+  if (declaredLength > maxBytes) {
+    return null;
+  }
+
+  const reader = request.body?.getReader();
+  if (!reader) {
+    return null;
+  }
+
+  const chunks: Uint8Array[] = [];
+  let size = 0;
+
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+
+    size += value.byteLength;
+    if (size > maxBytes) {
+      await reader.cancel();
+      return null;
+    }
+    chunks.push(value);
+  }
+
+  try {
+    const parsed: unknown = JSON.parse(Buffer.concat(chunks).toString('utf8'));
+    if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
+      return null;
+    }
+    return parsed as Record<string, unknown>;
+  } catch {
+    return null;
+  }
 }
 
 export type GeoLocation = {
@@ -57,8 +104,15 @@ export type GeoLocation = {
 
 export async function getGeoLocation(ip: string): Promise<GeoLocation> {
   try {
-    // Skip geolocation for local/unknown IPs
-    if (ip === 'unknown' || ip === '127.0.0.1' || ip.startsWith('192.168.') || ip.startsWith('10.')) {
+    // Skip geolocation for local/unknown IPs.
+    // The IP comes from a request header, so only ever put a well-formed address in the lookup URL
+    if (
+      net.isIP(ip) === 0 ||
+      ip === '127.0.0.1' ||
+      ip === '::1' ||
+      ip.startsWith('192.168.') ||
+      ip.startsWith('10.')
+    ) {
       return { country: 'Unknown', city: 'Unknown', state: 'Unknown' };
     }
 
