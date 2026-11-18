@@ -35,3 +35,9 @@ yarn-error.log*
 next-env.d.ts
 
 .env
+
+# analytics data (visitor logs must never be committed)
+analytics-log*.csv
+debug*
+.infra/
+
