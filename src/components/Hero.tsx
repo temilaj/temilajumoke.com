@@ -27,18 +27,20 @@ export default function Hero(props: { sectionsRef: React.RefObject<(HTMLElement 
 
           <div className="space-y-6">
             <p className="font-playfair text-lg text-muted-foreground leading-relaxed">
-              I&apos;m a<span className="text-foreground font-medium"> Software & Machine Learning Engineer </span>
-              with over 9 years of experience building <span className="text-foreground font-medium">
-                {' '}
-                scalable{' '}
-              </span>{' '}
-              and <span className="text-foreground font-medium"> highly performant </span> software systems across the
-              stack: from <span className="text-foreground font-medium"> frontend web apps & mobile apps</span>, to
-              <span className="text-foreground font-medium"> distributed backend systems</span>, to{' '}
-              <span className="text-foreground font-medium"> deep learning models</span>, and{' '}
-              <span className="text-foreground font-medium"> cloud native infrastructure</span>.
-              <br />I currently work on distributed system runtimes and inference engine enhancements for Large Language
-              Models at Amazon AI.
+              I&apos;m a
+              <span className="text-foreground font-medium"> Staff Software Engineer & Machine Learning Engineer </span>
+              who has spent over a decade building{' '}
+              <span className="text-foreground font-medium">distributed systems</span> and{' '}
+              <span className="text-foreground font-medium">ML infrastructure</span>. Most of my recent work has been{' '}
+              <span className="text-foreground font-medium">LLM inference and model serving</span>: the production model
+              runtimes, <span className="text-foreground font-medium">model hosting and deployment pipelines</span>, and{' '}
+              <span className="text-foreground font-medium">agentic orchestration</span> behind Amazon&apos;s Titan and
+              Nova foundation models, where I was a founding engineer in the AGI Lab. Before that I shipped a bit of
+              everything across the stack, from <span className="text-foreground font-medium">web and mobile apps</span>{' '}
+              to <span className="text-foreground font-medium">backend services</span> and{' '}
+              <span className="text-foreground font-medium">cloud native infrastructure</span>.
+              <br />I currently work on AI-powered tools and infrastructure at NVIDIA, leveraging Large Language Models
+              and agentic AI to automate engineering workflows at scale.
             </p>
 
             <p className="font-playfair text-lg text-muted-foreground leading-relaxed">
